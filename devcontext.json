@@ -1,0 +1,45 @@
+{
+  "projectName": "DevContext",
+  "projectType": "typescript",
+  "rootDir": "/Users/tylermailman/Documents/GitHub/DevContext",
+  "domains": [
+    {
+      "name": "typescript-embeddings",
+      "patterns": ["embeddings/src/**/*.ts"],
+      "description": "Embeddings system - semantic code search with Ollama"
+    },
+    {
+      "name": "javascript-memory-bank",
+      "patterns": ["memory-bank/scripts/**/*.js"],
+      "description": "Memory bank generation - template-based content generation"
+    },
+    {
+      "name": "templates",
+      "patterns": ["memory-bank/templates/**/*.template"],
+      "description": "Mustache-style templates for memory bank files"
+    },
+    {
+      "name": "config-system",
+      "patterns": ["config/**/*.json", "embeddings/src/config/**/*.ts"],
+      "description": "Configuration system - JSON schema and ConfigLoader"
+    },
+    {
+      "name": "scripts",
+      "patterns": ["scripts/**/*.{sh,js}", "memory-bank/scripts/**/*.sh"],
+      "description": "Installation and utility scripts"
+    },
+    {
+      "name": "docs",
+      "patterns": ["*.md", "docs/**/*.md", "embeddings/README.md", "memory-bank/README.md"],
+      "description": "Documentation files"
+    }
+  ],
+  "embeddingsModel": "nomic-embed-text",
+  "chunkSize": 512,
+  "tagKeywords": [
+    "async", "await", "function", "class", "interface", "type",
+    "template", "config", "loader", "embeddings", "faiss", "ollama",
+    "mcp", "server", "chunker", "indexer", "generator",
+    "semantic", "search", "query", "vector", "metadata"
+  ]
+}
