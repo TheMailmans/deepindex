@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+*.pyc
+__pycache__/
+
+# Build outputs
+embeddings/dist/
+*.js.map
+
+# Data (project-specific - regenerated per project)
+data/
+.embeddings/
+.claude/memory-bank/
+
+# Environment files
+.env
+.env.*
+.env.local
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*~
+
+# Database files
+*.db
+*.sqlite
+
+# Secrets (never commit)
+*.key
+*.pem
+secrets/

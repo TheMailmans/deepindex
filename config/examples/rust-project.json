@@ -1,0 +1,29 @@
+{
+  "projectName": "My Rust Project",
+  "projectType": "rust",
+  "rootDir": "/absolute/path/to/your/rust/project",
+  "domains": [
+    {
+      "name": "rust-core",
+      "patterns": ["src/**/*.rs", "!src/tests/**"],
+      "description": "Core Rust implementation"
+    },
+    {
+      "name": "rust-tests",
+      "patterns": ["src/tests/**/*.rs", "tests/**/*.rs"],
+      "description": "Test suites"
+    },
+    {
+      "name": "docs",
+      "patterns": ["*.md", "docs/**/*.md"],
+      "description": "Documentation files"
+    }
+  ],
+  "embeddingsModel": "nomic-embed-text",
+  "chunkSize": 512,
+  "tagKeywords": [
+    "async", "await", "impl", "trait", "struct", "enum",
+    "tokio", "axum", "actix", "sqlx", "diesel", "serde",
+    "error", "result", "option", "unwrap", "expect"
+  ]
+}

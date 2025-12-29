@@ -1,0 +1,40 @@
+{
+  "projectName": "My Django Project",
+  "projectType": "python",
+  "rootDir": "/absolute/path/to/your/django/project",
+  "domains": [
+    {
+      "name": "python-models",
+      "patterns": ["**/models.py", "**/models/**/*.py"],
+      "description": "Django models and database schemas"
+    },
+    {
+      "name": "python-views",
+      "patterns": ["**/views.py", "**/views/**/*.py"],
+      "description": "Views and request handlers"
+    },
+    {
+      "name": "python-api",
+      "patterns": ["**/api/**/*.py", "**/serializers.py"],
+      "description": "REST API and serializers"
+    },
+    {
+      "name": "python-tests",
+      "patterns": ["**/tests.py", "**/test_*.py", "tests/**/*.py"],
+      "description": "Test suites"
+    },
+    {
+      "name": "docs",
+      "patterns": ["*.md", "docs/**/*.md", "*.rst", "docs/**/*.rst"],
+      "description": "Documentation files"
+    }
+  ],
+  "embeddingsModel": "nomic-embed-text",
+  "chunkSize": 512,
+  "tagKeywords": [
+    "async", "await", "def", "class", "django", "model",
+    "view", "api", "serializer", "queryset", "filter",
+    "database", "migration", "admin", "form",
+    "request", "response", "middleware", "auth"
+  ]
+}

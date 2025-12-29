@@ -1,0 +1,40 @@
+{
+  "projectName": "My Next.js App",
+  "projectType": "typescript",
+  "rootDir": "/absolute/path/to/your/nextjs/project",
+  "domains": [
+    {
+      "name": "typescript-app",
+      "patterns": ["app/**/*.{ts,tsx}", "src/app/**/*.{ts,tsx}"],
+      "description": "Next.js App Router pages"
+    },
+    {
+      "name": "typescript-components",
+      "patterns": ["components/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
+      "description": "React components"
+    },
+    {
+      "name": "typescript-api",
+      "patterns": ["app/api/**/*.ts", "pages/api/**/*.ts"],
+      "description": "API routes"
+    },
+    {
+      "name": "typescript-lib",
+      "patterns": ["lib/**/*.ts", "src/lib/**/*.ts"],
+      "description": "Utility functions and libraries"
+    },
+    {
+      "name": "docs",
+      "patterns": ["*.md", "docs/**/*.md"],
+      "description": "Documentation files"
+    }
+  ],
+  "embeddingsModel": "nomic-embed-text",
+  "chunkSize": 512,
+  "tagKeywords": [
+    "async", "await", "function", "class", "interface", "type",
+    "component", "hook", "useState", "useEffect", "useCallback",
+    "api", "fetch", "axios", "query", "mutation",
+    "route", "page", "layout", "middleware"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "devcontext",
+  "version": "1.0.0",
+  "description": "Universal development context system with semantic embeddings and auto-generated memory bank",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "embeddings"
+  ],
+  "scripts": {
+    "build": "cd embeddings && npm install && npm run build",
+    "validate": "node scripts/validate-config.js"
+  },
+  "keywords": [
+    "embeddings",
+    "semantic-search",
+    "code-search",
+    "llm",
+    "claude",
+    "mcp",
+    "development-tools",
+    "memory-bank",
+    "ollama",
+    "faiss"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/DevContext.git"
+  }
+}
