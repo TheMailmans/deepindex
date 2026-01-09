@@ -25,3 +25,9 @@ export {
   type ManifestValidationResult,
   type SearchTier,
 } from './manifest.js';
+
+// CLI utilities
+export { doctor, runDiagnostics } from './doctor.js';
+export { clean } from './clean.js';
+export { init } from './init.js';
+export { generateMCPConfig } from './mcp-config.js';

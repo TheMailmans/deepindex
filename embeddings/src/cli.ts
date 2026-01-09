@@ -14,67 +14,123 @@ import { Indexer } from './indexer.js';
 import { MetadataStore } from './metadata-store.js';
 import { OllamaEmbedding } from './ollama-embedding.js';
 import { FaissStore } from './faiss-store.js';
-import { loadConfigResolved, ResolvedConfig } from './config/config-loader.js';
+import { loadConfigResolved, findConfig, ResolvedConfig } from './config/config-loader.js';
 import { writeManifest, validateManifest, getIndexStatus, type ManifestStats, type SearchTier } from './manifest.js';
+import { doctor, printDiagnostics, runDiagnostics } from './doctor.js';
+import { clean, printCleanResult } from './clean.js';
+import { printMCPConfig } from './mcp-config.js';
+import { init, printInitResult } from './init.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-let config: ResolvedConfig;
-let PROJECT_PATH: string;
-let DATA_PATH: string;
-let DOMAINS: Record<string, string[]>;
-let PROJECT_NAME: string;
-
-try {
-  config = loadConfigResolved();
-  PROJECT_PATH = config.rootDirAbs;
-  DATA_PATH = path.join(config.indexDirAbs, 'data');
-  DOMAINS = config.domains.reduce((acc, d) => {
-    acc[d.name] = d.patterns;
-    return acc;
-  }, {} as Record<string, string[]>);
-  PROJECT_NAME = config.projectName;
-} catch (error) {
-  console.error(chalk.red('✗ Failed to load configuration'));
-  console.error(chalk.gray('  Make sure embedcontext.json exists or set EMBEDCONTEXT_CONFIG env variable'));
-  if (error instanceof Error) {
-    console.error(chalk.gray(`  ${error.message}`));
-  }
-  process.exit(1);
-}
 
 const program = new Command();
 
 program
   .name('embedcontext')
-  .description(`EmbedContext - semantic code search for ${PROJECT_NAME}`)
+  .description('EmbedContext - local-first semantic code search')
   .version('0.1.0');
 
-// INDEX command
+// Helper to load config or exit with message
+function requireConfig(): {
+  config: ResolvedConfig;
+  projectPath: string;
+  dataPath: string;
+  domains: Record<string, string[]>;
+  projectName: string;
+} {
+  try {
+    const config = loadConfigResolved();
+    return {
+      config,
+      projectPath: config.rootDirAbs,
+      dataPath: path.join(config.indexDirAbs, 'data'),
+      domains: config.domains.reduce((acc, d) => {
+        acc[d.name] = d.patterns;
+        return acc;
+      }, {} as Record<string, string[]>),
+      projectName: config.projectName,
+    };
+  } catch (error) {
+    console.error(chalk.red('✗ Failed to load configuration'));
+    console.error(chalk.gray('  Make sure embedcontext.json exists or set EMBEDCONTEXT_CONFIG env variable'));
+    console.error(chalk.gray('  Run `embedcontext init` to create a new configuration'));
+    if (error instanceof Error) {
+      console.error(chalk.gray(`  ${error.message}`));
+    }
+    process.exit(1);
+  }
+}
+
+// INIT command - can run without config
+program
+  .command('init')
+  .description('Initialize embedcontext.json in the current directory')
+  .option('-f, --force', 'Overwrite existing configuration')
+  .option('-y, --yes', 'Skip prompts and use defaults')
+  .action(async (options: { force?: boolean; yes?: boolean }) => {
+    const result = await init({ force: options.force, yes: options.yes });
+    printInitResult(result);
+    process.exit(result.success ? 0 : 1);
+  });
+
+// DOCTOR command - can run without config
+program
+  .command('doctor')
+  .description('Check environment and configuration health')
+  .action(async () => {
+    const success = await doctor();
+    process.exit(success ? 0 : 1);
+  });
+
+// MCP-CONFIG command - can run without config
+program
+  .command('mcp-config')
+  .description('Output MCP configuration for Claude Desktop')
+  .option('--json', 'Output raw JSON only')
+  .option('--name <name>', 'Custom server name')
+  .action((options: { json?: boolean; name?: string }) => {
+    printMCPConfig({ json: options.json, name: options.name });
+  });
+
+// CLEAN command - requires config
+program
+  .command('clean')
+  .description('Remove the embeddings index')
+  .option('-y, --yes', 'Skip confirmation prompt')
+  .option('--dry-run', 'Show what would be deleted without deleting')
+  .action(async (options: { yes?: boolean; dryRun?: boolean }) => {
+    const result = await clean({ yes: options.yes, dryRun: options.dryRun });
+    printCleanResult(result);
+    process.exit(result.success ? 0 : 1);
+  });
+
+// INDEX command - requires config
 program
   .command('index')
-  .description(`Index the ${PROJECT_NAME} codebase`)
+  .description('Index the codebase for semantic search')
   .action(async () => {
-    console.log(chalk.cyan.bold(`\n🚀 EmbedContext Indexer - ${PROJECT_NAME}\n`));
+    const { config, projectPath, dataPath, domains, projectName } = requireConfig();
+
+    console.log(chalk.cyan.bold(`\n🚀 EmbedContext Indexer - ${projectName}\n`));
 
     try {
       // Ensure data directory exists
-      if (!fs.existsSync(DATA_PATH)) {
-        fs.mkdirSync(DATA_PATH, { recursive: true });
+      if (!fs.existsSync(dataPath)) {
+        fs.mkdirSync(dataPath, { recursive: true });
       }
 
       const indexer = new Indexer({
-        projectPath: PROJECT_PATH,
-        dataPath: DATA_PATH,
-        domains: DOMAINS,
+        projectPath,
+        dataPath,
+        domains,
       });
 
       await indexer.initialize();
 
       const startTime = Date.now();
 
-      await indexer.indexProject((progress) => {
+      await indexer.indexProject(() => {
         // Progress updates are already logged by the indexer
       });
 
@@ -109,13 +165,15 @@ program
     }
   });
 
-// SEARCH command
+// SEARCH command - requires config
 program
   .command('search <query>')
   .description('Search the codebase semantically')
   .option('-n, --max-results <number>', 'Maximum number of results', '5')
   .option('-d, --domain <domain>', 'Filter by domain')
   .action(async (query: string, options: { maxResults: string; domain?: string }) => {
+    const { config, dataPath } = requireConfig();
+
     console.log(chalk.cyan.bold('\n🔍 Semantic Search\n'));
 
     // Check manifest for stale index
@@ -133,9 +191,9 @@ program
     console.log(chalk.gray(`Query: "${query}"\n`));
 
     try {
-      const metadataStore = new MetadataStore(path.join(DATA_PATH, 'metadata.db'));
+      const metadataStore = new MetadataStore(path.join(dataPath, 'metadata.db'));
       const embedding = new OllamaEmbedding();
-      const faissStore = new FaissStore(768, path.join(DATA_PATH, 'embeddings.faiss'));
+      const faissStore = new FaissStore(768, path.join(dataPath, 'embeddings.faiss'));
 
       // Check if index exists
       if (!faissStore.exists()) {
@@ -194,18 +252,21 @@ program
     }
   });
 
-// STATS command
+// STATS command - requires config
 program
   .command('stats')
   .description('Show index statistics')
   .action(async () => {
+    const { config, dataPath } = requireConfig();
+
     console.log(chalk.cyan.bold('\n📊 Index Statistics\n'));
 
     // Show index status from manifest
     const indexStatus = getIndexStatus(config);
-    console.log(chalk.cyan('Index Status:'), indexStatus.includes('missing') || indexStatus.includes('stale')
-      ? chalk.yellow(indexStatus)
-      : chalk.green(indexStatus));
+    console.log(
+      chalk.cyan('Index Status:'),
+      indexStatus.includes('missing') || indexStatus.includes('stale') ? chalk.yellow(indexStatus) : chalk.green(indexStatus)
+    );
 
     // Check manifest for stale index
     const manifestResult = validateManifest(config);
@@ -219,8 +280,8 @@ program
     }
 
     try {
-      const metadataStore = new MetadataStore(path.join(DATA_PATH, 'metadata.db'));
-      const faissStore = new FaissStore(768, path.join(DATA_PATH, 'embeddings.faiss'));
+      const metadataStore = new MetadataStore(path.join(dataPath, 'metadata.db'));
+      const faissStore = new FaissStore(768, path.join(dataPath, 'embeddings.faiss'));
 
       // Check if index exists
       if (!faissStore.exists()) {

@@ -55,9 +55,9 @@ const DEFAULT_CHUNK_SIZE = 512;
 
 /**
  * Walk up directories to find embedcontext.json
- * @internal
+ * Returns the path to the config file or null if not found.
  */
-function findConfig(startDir: string = process.cwd()): string | null {
+export function findConfig(startDir: string = process.cwd()): string | null {
   let dir = startDir;
   while (dir !== dirname(dir)) {
     const configPath = join(dir, CONFIG_FILENAME);
