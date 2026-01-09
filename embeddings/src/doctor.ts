@@ -9,6 +9,7 @@ import { join } from 'path';
 import { OllamaEmbedding } from './ollama-embedding.js';
 import { loadConfigResolved, findConfig, type ResolvedConfig } from './config/config-loader.js';
 import { getIndexStatus, validateManifest } from './manifest.js';
+import { detectSearchTier, getTierDescription } from './search-tier.js';
 
 interface CheckResult {
   name: string;
@@ -77,7 +78,16 @@ export async function runDiagnostics(): Promise<CheckResult[]> {
     });
   }
 
-  // 5. Check index status (only if config exists)
+  // 5. Detect search tier
+  const tierInfo = await detectSearchTier();
+  results.push({
+    name: 'Search tier',
+    status: tierInfo.tier === 'hybrid' ? 'pass' : tierInfo.tier === 'rerank' ? 'warn' : 'warn',
+    message: getTierDescription(tierInfo.tier),
+    detail: tierInfo.tier !== 'hybrid' ? tierInfo.description : undefined,
+  });
+
+  // 6. Check index status (only if config exists)
   if (configPath) {
     try {
       const config = loadConfigResolved();
@@ -96,7 +106,7 @@ export async function runDiagnostics(): Promise<CheckResult[]> {
         detail: !manifestResult.valid ? manifestResult.message : undefined,
       });
 
-      // 6. Check data directory
+      // 7. Check data directory
       const dataPath = join(config.indexDirAbs, 'data');
       const hasData = existsSync(dataPath);
       results.push({

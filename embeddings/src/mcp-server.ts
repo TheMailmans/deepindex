@@ -228,7 +228,11 @@ class EmbedContextServer {
     await this.faissStore.load();
 
     // Initialize query engine
-    this.queryEngine = new QueryEngine(this.faissStore, this.metadataStore, this.embedding);
+    this.queryEngine = new QueryEngine({
+      metadataStore: this.metadataStore,
+      faissStore: this.faissStore,
+      embedding: this.embedding,
+    });
   }
 
   private async handleSemanticSearch(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {

@@ -11,7 +11,7 @@ export { RustChunker } from './chunkers/rust-chunker.js';
 export { TypeScriptChunker } from './chunkers/typescript-chunker.js';
 export { MarkdownChunker } from './chunkers/markdown-chunker.js';
 export { Indexer, type IndexerConfig, type IndexingProgress } from './indexer.js';
-export { QueryEngine, type SearchOptions, type SearchResult } from './query-engine.js';
+export { QueryEngine, type SearchOptions, type SearchResult, type QueryEngineConfig } from './query-engine.js';
 export { ConfigLoader, loadConfigResolved, type EmbedContextConfig, type ResolvedConfig, type DomainConfig } from './config/config-loader.js';
 export {
   validateManifest,
@@ -23,7 +23,6 @@ export {
   type ManifestData,
   type ManifestStats,
   type ManifestValidationResult,
-  type SearchTier,
 } from './manifest.js';
 
 // CLI utilities
@@ -31,3 +30,15 @@ export { doctor, runDiagnostics } from './doctor.js';
 export { clean } from './clean.js';
 export { init } from './init.js';
 export { generateMCPConfig } from './mcp-config.js';
+
+// Search tier detection
+export {
+  detectSearchTier,
+  checkFaissAvailable,
+  checkOllamaAvailable,
+  getTierDescription,
+  tierSupportsSemantic,
+  tierSupportsVectorSearch,
+  type TierCapabilities,
+} from './search-tier.js';
+export type { SearchTier } from './search-tier.js';

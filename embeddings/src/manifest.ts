@@ -11,12 +11,13 @@ import { createHash } from 'crypto';
 import { existsSync, readFileSync, writeFileSync, realpathSync } from 'fs';
 import { join } from 'path';
 import type { ResolvedConfig } from './config/config-loader.js';
+import type { SearchTier } from './search-tier.js';
 
 const MANIFEST_VERSION = 1;
 const TOOL_VERSION = '0.1.0';
 const MANIFEST_FILENAME = 'manifest.json';
 
-export type SearchTier = 'hybrid' | 'rerank' | 'keyword';
+export type { SearchTier };
 
 export interface ManifestStats {
   fileCount: number;
