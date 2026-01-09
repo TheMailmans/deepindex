@@ -15,6 +15,7 @@ import { MetadataStore } from './metadata-store.js';
 import { OllamaEmbedding } from './ollama-embedding.js';
 import { FaissStore } from './faiss-store.js';
 import { loadConfigResolved, ResolvedConfig } from './config/config-loader.js';
+import { writeManifest, validateManifest, getIndexStatus, type ManifestStats, type SearchTier } from './manifest.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -91,6 +92,16 @@ program
         console.log(`    ${domain}: ${count}`);
       }
 
+      // Write manifest for stale detection
+      const manifestStats: ManifestStats = {
+        fileCount: Object.keys(stats.byDomain).reduce((sum, d) => sum + (stats.byDomain[d] || 0), 0),
+        chunkCount: stats.totalChunks,
+        embeddingDimension: 768,
+      };
+      const searchTier: SearchTier = 'hybrid'; // TODO: detect actual tier
+      const manifest = writeManifest(config, manifestStats, searchTier);
+      console.log(chalk.gray(`\n  Manifest written: ${manifest.indexedAt}`));
+
       indexer.close();
     } catch (error) {
       console.error(chalk.red.bold('\n✗ Indexing failed:'), error);
@@ -106,6 +117,19 @@ program
   .option('-d, --domain <domain>', 'Filter by domain')
   .action(async (query: string, options: { maxResults: string; domain?: string }) => {
     console.log(chalk.cyan.bold('\n🔍 Semantic Search\n'));
+
+    // Check manifest for stale index
+    const manifestResult = validateManifest(config);
+    if (!manifestResult.valid) {
+      if (manifestResult.reason === 'stale') {
+        console.log(chalk.yellow('⚠ Index may be stale: config changed since last index'));
+        console.log(chalk.gray('  Run `embedcontext index` to update\n'));
+      } else if (manifestResult.reason === 'missing') {
+        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
+        process.exit(1);
+      }
+    }
+
     console.log(chalk.gray(`Query: "${query}"\n`));
 
     try {
@@ -176,6 +200,23 @@ program
   .description('Show index statistics')
   .action(async () => {
     console.log(chalk.cyan.bold('\n📊 Index Statistics\n'));
+
+    // Show index status from manifest
+    const indexStatus = getIndexStatus(config);
+    console.log(chalk.cyan('Index Status:'), indexStatus.includes('missing') || indexStatus.includes('stale')
+      ? chalk.yellow(indexStatus)
+      : chalk.green(indexStatus));
+
+    // Check manifest for stale index
+    const manifestResult = validateManifest(config);
+    if (!manifestResult.valid) {
+      if (manifestResult.reason === 'stale') {
+        console.log(chalk.yellow('\n⚠ Config changed since last index. Run `embedcontext index` to update.\n'));
+      } else if (manifestResult.reason === 'missing') {
+        console.error(chalk.red('\n✗ Index not found. Please run: embedcontext index'));
+        process.exit(1);
+      }
+    }
 
     try {
       const metadataStore = new MetadataStore(path.join(DATA_PATH, 'metadata.db'));

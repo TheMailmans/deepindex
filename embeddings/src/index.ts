@@ -13,3 +13,15 @@ export { MarkdownChunker } from './chunkers/markdown-chunker.js';
 export { Indexer, type IndexerConfig, type IndexingProgress } from './indexer.js';
 export { QueryEngine, type SearchOptions, type SearchResult } from './query-engine.js';
 export { ConfigLoader, loadConfigResolved, type EmbedContextConfig, type ResolvedConfig, type DomainConfig } from './config/config-loader.js';
+export {
+  validateManifest,
+  writeManifest,
+  readManifest,
+  getIndexStatus,
+  generateConfigHash,
+  getManifestPath,
+  type ManifestData,
+  type ManifestStats,
+  type ManifestValidationResult,
+  type SearchTier,
+} from './manifest.js';
