@@ -1,7 +1,9 @@
 {
-  "projectName": "DevContext",
+  "schemaVersion": 1,
+  "projectName": "EmbedContext",
   "projectType": "typescript",
-  "rootDir": "/Users/tylermailman/Documents/GitHub/DevContext",
+  "rootDir": ".",
+  "indexDir": ".embedcontext",
   "domains": [
     {
       "name": "typescript-embeddings",

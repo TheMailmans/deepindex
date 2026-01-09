@@ -1,7 +1,7 @@
 {
-  "name": "devcontext-embeddings",
-  "version": "1.0.0",
-  "description": "Universal embeddings system for semantic code search - works with any codebase",
+  "name": "embedcontext",
+  "version": "0.1.0",
+  "description": "Local-first code indexing + semantic search + MCP tools for Claude",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -14,8 +14,14 @@
     "dev": "tsc --watch"
   },
   "bin": {
-    "devcontext-embed": "./dist/cli.js"
+    "embedcontext": "./dist/cli.js",
+    "embedcontext-mcp": "./dist/mcp-server.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "embeddings",
     "code-search",
@@ -27,8 +33,11 @@
     "claude",
     "faiss"
   ],
-  "author": "",
+  "author": "Tyler Mailman <themailmaninbox@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/embedcontext-oss/embedcontext",
+  "bugs": "https://github.com/embedcontext-oss/embedcontext/issues",
+  "homepage": "https://github.com/embedcontext-oss/embedcontext#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "better-sqlite3": "^11.7.0",

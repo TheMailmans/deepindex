@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * DevContext Embeddings CLI
+ * EmbedContext CLI
  * Command-line interface for semantic code search
  */
 
@@ -14,46 +14,48 @@ import { Indexer } from './indexer.js';
 import { MetadataStore } from './metadata-store.js';
 import { OllamaEmbedding } from './ollama-embedding.js';
 import { FaissStore } from './faiss-store.js';
-import { ConfigLoader } from './config/config-loader.js';
+import { loadConfigResolved, ResolvedConfig } from './config/config-loader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load configuration from environment or default location
-const configPath = process.env.DEVCONTEXT_CONFIG || path.join(process.cwd(), 'devcontext.json');
-
-let config: any;
+let config: ResolvedConfig;
 let PROJECT_PATH: string;
 let DATA_PATH: string;
 let DOMAINS: Record<string, string[]>;
 let PROJECT_NAME: string;
 
 try {
-  const configLoader = ConfigLoader.getInstance(configPath);
-  config = configLoader.getConfig();
-  PROJECT_PATH = config.rootDir;
-  DATA_PATH = path.join(PROJECT_PATH, '.devcontext', 'data');
-  DOMAINS = configLoader.getDomains();
+  config = loadConfigResolved();
+  PROJECT_PATH = config.rootDirAbs;
+  DATA_PATH = path.join(config.indexDirAbs, 'data');
+  DOMAINS = config.domains.reduce((acc, d) => {
+    acc[d.name] = d.patterns;
+    return acc;
+  }, {} as Record<string, string[]>);
   PROJECT_NAME = config.projectName;
 } catch (error) {
-  console.error(chalk.red('✗ Failed to load configuration from:'), configPath);
-  console.error(chalk.gray('  Make sure devcontext.json exists or set DEVCONTEXT_CONFIG env variable'));
+  console.error(chalk.red('✗ Failed to load configuration'));
+  console.error(chalk.gray('  Make sure embedcontext.json exists or set EMBEDCONTEXT_CONFIG env variable'));
+  if (error instanceof Error) {
+    console.error(chalk.gray(`  ${error.message}`));
+  }
   process.exit(1);
 }
 
 const program = new Command();
 
 program
-  .name('devcontext-embed')
-  .description(`Semantic code search for ${PROJECT_NAME} using Ollama embeddings`)
-  .version('1.0.0');
+  .name('embedcontext')
+  .description(`EmbedContext - semantic code search for ${PROJECT_NAME}`)
+  .version('0.1.0');
 
 // INDEX command
 program
   .command('index')
   .description(`Index the ${PROJECT_NAME} codebase`)
   .action(async () => {
-    console.log(chalk.cyan.bold(`\n🚀 DevContext Embeddings Indexer - ${PROJECT_NAME}\n`));
+    console.log(chalk.cyan.bold(`\n🚀 EmbedContext Indexer - ${PROJECT_NAME}\n`));
 
     try {
       // Ensure data directory exists
@@ -113,7 +115,7 @@ program
 
       // Check if index exists
       if (!faissStore.exists()) {
-        console.error(chalk.red('✗ Index not found. Please run: devcontext-embed index'));
+        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
         process.exit(1);
       }
 
@@ -181,7 +183,7 @@ program
 
       // Check if index exists
       if (!faissStore.exists()) {
-        console.error(chalk.red('✗ Index not found. Please run: devcontext-embed index'));
+        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
         process.exit(1);
       }
 
@@ -213,6 +215,21 @@ program
       console.error(chalk.red.bold('\n✗ Failed to get stats:'), error);
       process.exit(1);
     }
+  });
+
+// MCP command (alias for running mcp-server)
+program
+  .command('mcp')
+  .description('Run the MCP server')
+  .action(async () => {
+    // Import and run the MCP server
+    const mcpServerPath = path.join(__dirname, 'mcp-server.js');
+    const { spawn } = await import('child_process');
+    const child = spawn('node', [mcpServerPath], {
+      stdio: 'inherit',
+      env: process.env,
+    });
+    child.on('exit', (code) => process.exit(code || 0));
   });
 
 program.parse();

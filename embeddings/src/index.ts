@@ -1,5 +1,5 @@
 /**
- * DevContext Embeddings - Main Export
+ * EmbedContext - Main Export
  * Universal semantic code search using Ollama embeddings
  */
 
@@ -12,4 +12,4 @@ export { TypeScriptChunker } from './chunkers/typescript-chunker.js';
 export { MarkdownChunker } from './chunkers/markdown-chunker.js';
 export { Indexer, type IndexerConfig, type IndexingProgress } from './indexer.js';
 export { QueryEngine, type SearchOptions, type SearchResult } from './query-engine.js';
-export { ConfigLoader, type DevContextConfig, type DomainConfig } from './config/config-loader.js';
+export { ConfigLoader, loadConfigResolved, type EmbedContextConfig, type ResolvedConfig, type DomainConfig } from './config/config-loader.js';

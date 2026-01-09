@@ -1,14 +1,14 @@
 {
-  "name": "devcontext",
+  "name": "embedcontext-monorepo",
   "version": "1.0.0",
-  "description": "Universal development context system with semantic embeddings and auto-generated memory bank",
+  "description": "Local-first code indexing + semantic search + MCP tools for Claude",
   "type": "module",
   "private": true,
   "workspaces": [
     "embeddings"
   ],
   "scripts": {
-    "build": "cd embeddings && npm install && npm run build",
+    "build": "npm -C embeddings run build",
     "validate": "node scripts/validate-config.js"
   },
   "keywords": [
@@ -19,17 +19,16 @@
     "claude",
     "mcp",
     "development-tools",
-    "memory-bank",
     "ollama",
     "faiss"
   ],
-  "author": "",
+  "author": "Tyler Mailman <themailmaninbox@gmail.com>",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/DevContext.git"
+    "url": "https://github.com/embedcontext-oss/embedcontext.git"
   }
 }

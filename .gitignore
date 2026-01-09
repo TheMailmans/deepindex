@@ -10,6 +10,8 @@ embeddings/dist/
 # Data (project-specific - regenerated per project)
 data/
 .embeddings/
+.embedcontext/
+.devcontext/
 .claude/memory-bank/
 
 # Environment files

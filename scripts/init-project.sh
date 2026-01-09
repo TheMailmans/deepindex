@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🚀 DevContext Initialization"
+echo "🚀 EmbedContext Initialization"
 echo ""
 
 # Detect project root
@@ -24,11 +24,11 @@ detect_project_type() {
 PROJECT_TYPE=$(detect_project_type)
 echo "Detected project type: $PROJECT_TYPE"
 
-# Create devcontext.json
+# Create embedcontext.json
 echo ""
 echo "📝 Creating configuration file..."
 
-cat > devcontext.json <<EOF
+cat > embedcontext.json <<EOF
 {
   "projectName": "$(basename $PROJECT_ROOT)",
   "projectType": "$PROJECT_TYPE",
@@ -48,7 +48,7 @@ cat > devcontext.json <<EOF
 }
 EOF
 
-echo "✅ Created devcontext.json"
+echo "✅ Created embedcontext.json"
 
 # Create .claude directory
 mkdir -p .claude/memory-bank/{core,knowledge}
@@ -86,9 +86,9 @@ echo ""
 echo "✅ DevContext initialized successfully!"
 echo ""
 echo "Next steps:"
-echo "  1. Edit devcontext.json to configure domains for your project"
+echo "  1. Edit embedcontext.json to configure domains for your project"
 echo "  2. Install DevContext embeddings:"
 echo "     cd /path/to/DevContext/embeddings && npm install && npm run build"
-echo "  3. Build embeddings index: DEVCONTEXT_CONFIG=$PROJECT_ROOT/devcontext.json devcontext-embed index"
-echo "  4. Generate memory bank: DEVCONTEXT_CONFIG=$PROJECT_ROOT/devcontext.json node /path/to/DevContext/memory-bank/scripts/generate.js"
+echo "  3. Build embeddings index: cd $PROJECT_ROOT && embedcontext index"
+echo "  4. Generate memory bank: EMBEDCONTEXT_CONFIG=$PROJECT_ROOT/embedcontext.json node /path/to/EmbedContext/memory-bank/scripts/generate.js"
 echo "  5. Configure Claude Desktop MCP (see docs/mcp-integration.md)"

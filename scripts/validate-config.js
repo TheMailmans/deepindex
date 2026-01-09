@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * DevContext Configuration Validator
- * Validates devcontext.json against schema
+ * EmbedContext Configuration Validator
+ * Validates embedcontext.json against schema
  */
 
 import { readFileSync } from 'fs';
@@ -12,11 +12,11 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const configPath = process.argv[2] || join(process.cwd(), 'devcontext.json');
+const configPath = process.argv[2] || join(process.cwd(), 'embedcontext.json');
 
 try {
   // Load schema
-  const schemaPath = join(__dirname, '../config/devcontext.schema.json');
+  const schemaPath = join(__dirname, '../config/embedcontext.schema.json');
   const schema = JSON.parse(readFileSync(schemaPath, 'utf-8'));
 
   // Load config

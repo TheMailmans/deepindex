@@ -1,59 +1,47 @@
-# DevContext - Universal Development Context System
+# EmbedContext
 
-Semantic embeddings + auto-generated memory bank for ANY codebase.
+> **Local-first code indexing + semantic search + MCP tools for Claude**
 
-## What is DevContext?
+EmbedContext gives Claude fast, local understanding of your codebase without uploading it anywhere.
 
-DevContext is a universal development tool that combines:
-- **Semantic code search** using Ollama embeddings (offline, local)
-- **Auto-generated memory bank** providing LLM context about your project
+## What is EmbedContext?
+
+EmbedContext is a universal development context system that combines:
+- **Semantic code search** using Ollama embeddings (local, offline-capable)
+- **Auto-generated memory bank** providing persistent LLM context
 - **MCP integration** for Claude Code with 5 specialized search tools
 
-Unlike project-specific tools, DevContext works with ANY codebase through simple JSON configuration.
+Works with ANY codebase through simple JSON configuration.
 
 ## Features
 
-- 🔍 **Semantic Code Search** - Find code by meaning, not just keywords
-- 📚 **Auto-Generated Documentation** - Memory bank files from your codebase
-- 🔌 **Claude Code Integration** - 5 MCP tools for intelligent code assistance
-- 🎯 **Universal** - Works with Rust, TypeScript, Python, Go, Java, and more
-- ⚙️ **Configurable** - Simple JSON config for domains and keywords
-- 🚀 **Local & Fast** - Runs entirely on your machine with Ollama
+- **Semantic Code Search** - Find code by meaning, not just keywords
+- **Hybrid Search** - Combines semantic + SQLite FTS5 keyword search
+- **Claude Code Integration** - 5 MCP tools for intelligent code assistance
+- **Universal** - Works with Rust, TypeScript, Python, Go, Java, and more
+- **Configurable** - Simple JSON config for domains and patterns
+- **Local & Fast** - Runs entirely on your machine with Ollama
 
 ## Quick Start
 
 ```bash
-# 1. Clone DevContext
-git clone https://github.com/yourusername/DevContext.git
-cd DevContext
+# Install globally
+npm install -g embedcontext
 
-# 2. Install dependencies
-cd embeddings && npm install && npm run build
+# Initialize in your project
+cd your-project
+embedcontext init
 
-# 3. Initialize in your project
-cd /path/to/your/project
-bash /path/to/DevContext/scripts/init-project.sh
+# Build embeddings index
+embedcontext index
 
-# 4. Configure domains (edit devcontext.json)
-# 5. Build embeddings index
-devcontext-embed index
-
-# 6. Generate memory bank
-devcontext-generate
-
-# 7. Setup Claude Desktop MCP
-bash /path/to/DevContext/scripts/setup-mcp.sh
+# Search your codebase
+embedcontext search "authentication flow"
 ```
 
-## How It Works
+## MCP Tools for Claude
 
-1. **Configuration** - Define project domains in `devcontext.json`
-2. **Indexing** - Code is chunked and embedded using Ollama (nomic-embed-text)
-3. **Search** - Semantic + keyword hybrid search with FAISS and SQLite FTS5
-4. **Memory Bank** - Templates generate context files from embeddings queries
-5. **MCP Tools** - Claude Code gets 5 specialized search tools via MCP
-
-## MCP Tools
+When connected to Claude Desktop, you get 5 specialized tools:
 
 - `semantic_search` - Find code by conceptual similarity
 - `find_related_code` - Discover related implementations
@@ -61,12 +49,47 @@ bash /path/to/DevContext/scripts/setup-mcp.sh
 - `find_todos` - List all TODO/FIXME markers
 - `trace_request_flow` - Trace features across layers
 
-## Documentation
+### Claude Desktop Setup
 
-- [Setup Guide](docs/setup.md) - Installation and configuration
-- [Configuration Reference](docs/configuration.md) - Complete config options
-- [Customization Guide](docs/customization.md) - Templates and generators
-- [MCP Integration](docs/mcp-integration.md) - Claude Desktop setup
+```bash
+# Generate MCP config for Claude Desktop
+embedcontext mcp-config
+```
+
+Add the output to your Claude Desktop configuration file.
+
+## Configuration
+
+Create `embedcontext.json` in your project root:
+
+```json
+{
+  "schemaVersion": 1,
+  "projectName": "my-project",
+  "projectType": "typescript",
+  "rootDir": ".",
+  "indexDir": ".embedcontext",
+  "domains": [
+    {
+      "name": "src",
+      "patterns": ["src/**/*.ts"],
+      "description": "Source code"
+    }
+  ]
+}
+```
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `embedcontext init` | Initialize config in current directory |
+| `embedcontext index` | Build embeddings index |
+| `embedcontext search <query>` | Search codebase |
+| `embedcontext stats` | Show index statistics |
+| `embedcontext mcp-config` | Output MCP config for Claude Desktop |
+| `embedcontext doctor` | Check environment setup |
+| `embedcontext clean` | Remove index data |
 
 ## Requirements
 
@@ -74,10 +97,22 @@ bash /path/to/DevContext/scripts/setup-mcp.sh
 - Ollama with `nomic-embed-text` model
 - Claude Desktop (for MCP integration)
 
+### Install Ollama
+
+```bash
+# macOS
+brew install ollama
+ollama serve
+ollama pull nomic-embed-text
+```
+
+## How It Works
+
+1. **Configure** - Define project domains in `embedcontext.json`
+2. **Index** - Code is chunked and embedded using Ollama
+3. **Search** - Semantic + keyword hybrid search with FAISS + SQLite FTS5
+4. **MCP** - Claude Code gets 5 specialized search tools
+
 ## License
 
-MIT
-
-## Credits
-
-Extracted from PlexMCP development tools on December 28, 2025.
+MIT - Tyler Mailman

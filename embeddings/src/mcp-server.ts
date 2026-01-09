@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * DevContext Embeddings MCP Server
+ * EmbedContext MCP Server
  *
  * Exposes semantic code search capabilities to Claude Code via MCP protocol.
  * Universal server that works with any codebase through configuration.
@@ -27,22 +27,24 @@ import { QueryEngine } from './query-engine.js';
 import { FaissStore } from './faiss-store.js';
 import { MetadataStore } from './metadata-store.js';
 import { OllamaEmbedding } from './ollama-embedding.js';
-import { ConfigLoader } from './config/config-loader.js';
+import { loadConfigResolved, ResolvedConfig } from './config/config-loader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load configuration
-const configPath = process.env.DEVCONTEXT_CONFIG || path.join(process.cwd(), 'devcontext.json');
-const configLoader = ConfigLoader.getInstance(configPath);
-const config = configLoader.getConfig();
+const config = loadConfigResolved();
 const PROJECT_NAME = config.projectName;
+const DOMAINS = config.domains.reduce((acc, d) => {
+  acc[d.name] = d.patterns;
+  return acc;
+}, {} as Record<string, string[]>);
 
 // Configuration
-const DATA_PATH = path.join(config.rootDir, '.devcontext', 'data');
+const DATA_PATH = path.join(config.indexDirAbs, 'data');
 const EMBEDDING_DIMENSION = 768;
 
-class DevContextEmbeddingsServer {
+class EmbedContextServer {
   private server: Server;
   private queryEngine: QueryEngine | null = null;
   private metadataStore: MetadataStore;
@@ -52,8 +54,8 @@ class DevContextEmbeddingsServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'devcontext-embeddings',
-        version: '1.0.0',
+        name: 'embedcontext',
+        version: '0.1.0',
       },
       {
         capabilities: {
@@ -103,6 +105,8 @@ class DevContextEmbeddingsServer {
   }
 
   private getToolDefinitions(): Tool[] {
+    const domainNames = Object.keys(DOMAINS).join(', ');
+
     return [
       {
         name: 'semantic_search',
@@ -124,8 +128,7 @@ class DevContextEmbeddingsServer {
             },
             domain: {
               type: 'string',
-              description:
-                `Filter by domain (configured in devcontext.json): ${Object.keys(configLoader.getDomains()).join(', ')}`,
+              description: `Filter by domain (configured in embedcontext.json): ${domainNames}`,
             },
             file_type: {
               type: 'string',
@@ -454,5 +457,5 @@ class DevContextEmbeddingsServer {
 }
 
 // Start server
-const server = new DevContextEmbeddingsServer();
+const server = new EmbedContextServer();
 server.run().catch(console.error);
