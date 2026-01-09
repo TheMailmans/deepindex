@@ -42,3 +42,53 @@ export {
   type TierCapabilities,
 } from './search-tier.js';
 export type { SearchTier } from './search-tier.js';
+
+// Security and validation
+export {
+  ValidationError,
+  validatePathWithinRoot,
+  validateFileExists,
+  validateDirectoryExists,
+  sanitizeSearchQuery,
+  validateDomainName,
+  validateGlobPattern,
+  validateNumericOption,
+  validateProjectName,
+  validateFileSize,
+} from './validation.js';
+
+// Error classes
+export {
+  EmbedContextError,
+  ConfigError,
+  ConfigNotFoundError,
+  ConfigInvalidError,
+  IndexError,
+  IndexNotFoundError,
+  IndexStaleError,
+  OllamaError,
+  OllamaConnectionError,
+  OllamaModelNotFoundError,
+  SearchError,
+  ResourceLimitError,
+  ConcurrencyLimitError,
+  TimeoutError,
+  isEmbedContextError,
+  wrapError,
+} from './errors.js';
+
+// Resource limits
+export {
+  FILE_LIMITS,
+  CHUNK_LIMITS,
+  SEARCH_LIMITS,
+  MCP_LIMITS,
+  EMBEDDING_LIMITS,
+  MEMORY_LIMITS,
+  CONFIG_LIMITS,
+  LIMITS,
+  getLimitOverride,
+} from './config/limits.js';
+
+// Concurrency control
+export { Semaphore, RateLimiter, RequestQueue } from './utils/semaphore.js';

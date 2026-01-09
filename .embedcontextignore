@@ -1,0 +1,122 @@
+# EmbedContext Ignore File
+# Patterns listed here will be excluded from indexing
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+target/
+out/
+*.o
+*.so
+*.dylib
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Version control
+.git/
+.svn/
+.hg/
+
+# Package files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Binary files
+*.exe
+*.dll
+*.bin
+*.dat
+
+# Image files (large)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.svg
+*.webp
+
+# Media files
+*.mp3
+*.mp4
+*.wav
+*.avi
+*.mov
+
+# Font files
+*.ttf
+*.otf
+*.woff
+*.woff2
+*.eot
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# Cache directories
+.cache/
+.embedcontext/
+.devcontext/
+__pycache__/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Secrets (never index)
+*.key
+*.pem
+*.crt
+*.p12
+secrets/
+credentials/
+
+# Lock files (large, auto-generated)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+Cargo.lock
+poetry.lock
+Gemfile.lock
+composer.lock
+
+# Generated documentation
+docs/_build/
+site/
+_site/
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
