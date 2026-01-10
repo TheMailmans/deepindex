@@ -35,9 +35,9 @@
   ],
   "author": "Tyler Mailman <themailmaninbox@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/embedcontext-oss/embedcontext",
-  "bugs": "https://github.com/embedcontext-oss/embedcontext/issues",
-  "homepage": "https://github.com/embedcontext-oss/embedcontext#readme",
+  "repository": "https://github.com/themailmans/embedcontext",
+  "bugs": "https://github.com/themailmans/embedcontext/issues",
+  "homepage": "https://github.com/themailmans/embedcontext#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "better-sqlite3": "^11.7.0",

@@ -42,5 +42,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resource limits to prevent runaway processes
 - `.embedcontextignore` for excluding sensitive files
 
-[Unreleased]: https://github.com/embedcontext-oss/embedcontext/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/embedcontext-oss/embedcontext/releases/tag/v0.1.0
+[Unreleased]: https://github.com/themailmans/embedcontext/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/themailmans/embedcontext/releases/tag/v0.1.0

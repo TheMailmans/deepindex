@@ -43,7 +43,7 @@ Before submitting a PR:
 
 ```bash
 # Clone the repository
-git clone https://github.com/embedcontext-oss/embedcontext.git
+git clone https://github.com/themailmans/embedcontext.git
 cd embedcontext
 
 # Install dependencies
@@ -99,7 +99,7 @@ feat: add support for Python chunking
 
 ## Questions?
 
-- Open a [GitHub Discussion](https://github.com/embedcontext-oss/embedcontext/discussions)
+- Open a [GitHub Discussion](https://github.com/themailmans/embedcontext/discussions)
 - Check the [documentation](./docs/)
 
 ## License

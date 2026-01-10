@@ -13,8 +13,9 @@ If you discover a security vulnerability in EmbedContext, please report it respo
 ### How to Report
 
 1. **Do NOT open a public issue** for security vulnerabilities
-2. Email: [Create a private security advisory on GitHub](https://github.com/embedcontext-oss/embedcontext/security/advisories/new)
-3. Include:
+2. **Email:** themailmaninbox@gmail.com (preferred for fastest response)
+3. **GitHub:** [Create a private security advisory](https://github.com/themailmans/embedcontext/security/advisories/new)
+4. Include:
    - Description of the vulnerability
    - Steps to reproduce
    - Potential impact
