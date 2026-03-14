@@ -46,7 +46,7 @@
     "commander": "^12.1.0",
     "faiss-node": "^0.5.1",
     "glob": "^11.0.0",
-    "ollama": "^0.5.11"
+    "ollama": "^0.6.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
