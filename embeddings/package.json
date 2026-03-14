@@ -1,5 +1,5 @@
 {
-  "name": "DEEPINDEX",
+  "name": "deepindex",
   "version": "0.1.0",
   "description": "Local-first code indexing + semantic search + MCP tools for Claude",
   "main": "dist/index.js",
@@ -14,8 +14,8 @@
     "dev": "tsc --watch"
   },
   "bin": {
-    "DEEPINDEX": "./dist/cli.js",
-    "DEEPINDEX-mcp": "./dist/mcp-server.js"
+    "deepindex": "./dist/cli.js",
+    "deepindex-mcp": "./dist/mcp-server.js"
   },
   "files": [
     "dist",
@@ -35,9 +35,9 @@
   ],
   "author": "Tyler Mailman <themailmaninbox@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/themailmans/DEEPINDEX",
-  "bugs": "https://github.com/themailmans/DEEPINDEX/issues",
-  "homepage": "https://github.com/themailmans/DEEPINDEX#readme",
+  "repository": "https://github.com/themailmans/deepindex",
+  "bugs": "https://github.com/themailmans/deepindex/issues",
+  "homepage": "https://github.com/themailmans/deepindex#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "better-sqlite3": "^11.7.0",

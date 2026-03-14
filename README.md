@@ -1,7 +1,9 @@
-# DEEPINDEX
+![DeepIndex Banner](assets/banner.svg)
 
-[![npm version](https://img.shields.io/npm/v/DEEPINDEX?color=blue)](https://www.npmjs.com/package/DEEPINDEX)
-[![CI](https://github.com/themailmans/DEEPINDEX/actions/workflows/ci.yml/badge.svg)](https://github.com/themailmans/DEEPINDEX/actions/workflows/ci.yml)
+# DeepIndex
+
+[![npm version](https://img.shields.io/npm/v/deepindex?color=blue)](https://www.npmjs.com/package/deepindex)
+[![CI](https://github.com/themailmans/deepindex/actions/workflows/ci.yml/badge.svg)](https://github.com/themailmans/deepindex/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js 18+](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
@@ -9,7 +11,7 @@
 
 ## What it does
 
-DEEPINDEX indexes your codebase with local Ollama embeddings and exposes 5 search tools to Claude Code via MCP. Instead of pasting files into context, Claude searches your codebase semantically — finding the right code by meaning, not just keywords.
+DeepIndex indexes your codebase with local Ollama embeddings and exposes 5 search tools to Claude Code via MCP. Instead of pasting files into context, Claude searches your codebase semantically — finding the right code by meaning, not just keywords.
 
 ## How it works
 
@@ -17,22 +19,22 @@ DEEPINDEX indexes your codebase with local Ollama embeddings and exposes 5 searc
 Your Codebase
      │
      ▼
-┌─────────────┐    chunks     ┌──────────────────┐    vectors    ┌────────────┐
-│  DEEPINDEX│──────────────▶│  Ollama (local)  │──────────────▶│ FAISS Index│
-│   index     │               │ nomic-embed-text  │               │ + SQLite   │
-└─────────────┘               └──────────────────┘               └─────┬──────┘
-                                                                        │
-                                                                        ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  Claude Code (MCP)                                                           │
-│  semantic_search · find_related_code · find_todos · explain_error · trace    │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌──────────────┐    chunks     ┌──────────────────┐    vectors    ┌────────────┐
+│   deepindex  │──────────────▶│  Ollama (local)  │──────────────▶│ FAISS Index│
+│    index     │               │ nomic-embed-text  │               │ + SQLite   │
+└──────────────┘               └──────────────────┘               └─────┬──────┘
+                                                                         │
+                                                                         ▼
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  Claude Code (MCP)                                                            │
+│  semantic_search · find_related_code · find_todos · explain_error · trace     │
+└───────────────────────────────────────────────────────────────────────────────┘
 ```
 
 1. **Index** — your code is chunked by semantic boundaries (functions, classes, sections)
-2. **Embed** — each chunk is embedded via Ollama running locally, no data leaves your machine
-3. **Search** — Claude Code calls the MCP tools, which run hybrid semantic + keyword search against FAISS + SQLite
-4. **Result** — Claude gets the exact files and line ranges it needs, without you pasting anything
+2. **Embed** — each chunk runs through Ollama locally, no data leaves your machine
+3. **Search** — Claude Code calls the MCP tools, running hybrid semantic + keyword search
+4. **Result** — Claude gets exact files and line ranges, without you pasting anything
 
 ## Quick Install
 
@@ -40,12 +42,12 @@ Requires [Ollama](https://ollama.com) running with `nomic-embed-text`:
 
 ```bash
 ollama pull nomic-embed-text
-npm install -g DEEPINDEX
+npm install -g deepindex
 
 cd your-project
-DEEPINDEX init     # creates DEEPINDEX.json
-DEEPINDEX index    # builds vector index (~30s)
-DEEPINDEX mcp-config  # outputs Claude Desktop config
+deepindex init        # creates deepindex.json
+deepindex index       # builds vector index (~30s)
+deepindex mcp-config  # outputs Claude Desktop config
 ```
 
 Add the MCP config output to your Claude Desktop settings and restart. Done.
@@ -65,13 +67,13 @@ Add the MCP config output to your Claude Desktop settings and restart. Done.
 ## CLI Commands
 
 ```bash
-DEEPINDEX doctor      # check environment health
-DEEPINDEX init        # create DEEPINDEX.json
-DEEPINDEX index       # build/rebuild vector index
-DEEPINDEX search "query"  # search from the terminal
-DEEPINDEX stats       # index status and chunk counts
-DEEPINDEX clean       # remove index data
-DEEPINDEX mcp-config  # output Claude Desktop MCP config
+deepindex doctor      # check environment health
+deepindex init        # create deepindex.json
+deepindex index       # build/rebuild vector index
+deepindex search "query"  # search from the terminal
+deepindex stats       # index status and chunk counts
+deepindex clean       # remove index data
+deepindex mcp-config  # output Claude Desktop MCP config
 ```
 
 ## Why local?
@@ -89,7 +91,7 @@ DEEPINDEX mcp-config  # output Claude Desktop MCP config
 
 ## Configuration
 
-`DEEPINDEX.json` in your project root controls what gets indexed:
+`deepindex.json` in your project root controls what gets indexed:
 
 ```json
 {
@@ -108,7 +110,7 @@ DEEPINDEX mcp-config  # output Claude Desktop MCP config
 }
 ```
 
-Use `.DEEPINDEXignore` to exclude files (same syntax as `.gitignore`).
+Use `.deepindexignore` to exclude files (same syntax as `.gitignore`).
 
 ## Requirements
 

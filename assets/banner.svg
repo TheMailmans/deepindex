@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f1f3d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.5">
+    <line x1="0" y1="160" x2="1280" y2="160"/>
+    <line x1="0" y1="320" x2="1280" y2="320"/>
+    <line x1="0" y1="480" x2="1280" y2="480"/>
+    <line x1="320" y1="0" x2="320" y2="640"/>
+    <line x1="640" y1="0" x2="640" y2="640"/>
+    <line x1="960" y1="0" x2="960" y2="640"/>
+  </g>
+
+  <!-- Accent glow blob top-left -->
+  <ellipse cx="100" cy="120" rx="200" ry="120" fill="#3b82f6" opacity="0.06"/>
+  <!-- Accent glow blob bottom-right -->
+  <ellipse cx="1180" cy="520" rx="220" ry="140" fill="#8b5cf6" opacity="0.08"/>
+
+  <!-- Left side: code panel -->
+  <rect x="60" y="160" width="480" height="320" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <!-- Panel header bar -->
+  <rect x="60" y="160" width="480" height="36" rx="12" fill="#21262d"/>
+  <rect x="60" y="184" width="480" height="12" fill="#21262d"/>
+  <!-- Traffic lights -->
+  <circle cx="88" cy="178" r="6" fill="#ff5f57"/>
+  <circle cx="108" cy="178" r="6" fill="#febc2e"/>
+  <circle cx="128" cy="178" r="6" fill="#28c840"/>
+  <!-- Panel title -->
+  <text x="320" y="183" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">deepindex search</text>
+
+  <!-- Code lines -->
+  <text x="84" y="224" font-family="monospace" font-size="13" fill="#8b949e">$</text>
+  <text x="96" y="224" font-family="monospace" font-size="13" fill="#e6edf3">deepindex search </text>
+  <text x="280" y="224" font-family="monospace" font-size="13" fill="#a5d6ff">"authentication flow"</text>
+
+  <text x="84" y="256" font-family="monospace" font-size="12" fill="#3fb950">✓</text>
+  <text x="100" y="256" font-family="monospace" font-size="12" fill="#8b949e">Found 5 results</text>
+
+  <text x="84" y="286" font-family="monospace" font-size="12" fill="#58a6ff">1. src/auth/middleware.ts</text>
+  <text x="84" y="302" font-family="monospace" font-size="11" fill="#6e7681">   Lines 24-67 · similarity: 94%</text>
+  <text x="84" y="318" font-family="monospace" font-size="11" fill="#8b949e">   function: validateJWT</text>
+
+  <text x="84" y="346" font-family="monospace" font-size="12" fill="#58a6ff">2. src/routes/login.ts</text>
+  <text x="84" y="362" font-family="monospace" font-size="11" fill="#6e7681">   Lines 12-45 · similarity: 88%</text>
+
+  <text x="84" y="390" font-family="monospace" font-size="12" fill="#58a6ff">3. src/services/session.ts</text>
+  <text x="84" y="406" font-family="monospace" font-size="11" fill="#6e7681">   Lines 8-51 · similarity: 82%</text>
+
+  <text x="84" y="434" font-family="monospace" font-size="12" fill="#58a6ff">4. tests/auth.test.ts</text>
+  <text x="84" y="450" font-family="monospace" font-size="11" fill="#6e7681">   Lines 1-38 · similarity: 77%</text>
+
+  <!-- Cursor blink -->
+  <rect x="84" y="462" width="8" height="14" fill="#58a6ff" opacity="0.8"/>
+
+  <!-- Center arrow -->
+  <g filter="url(#glow)">
+    <line x1="580" y1="320" x2="640" y2="320" stroke="url(#accent)" stroke-width="2.5"/>
+    <polygon points="640,314 654,320 640,326" fill="url(#accent)"/>
+    <line x1="554" y1="320" x2="580" y2="320" stroke="url(#accent)" stroke-width="2.5" opacity="0.5"/>
+  </g>
+
+  <!-- Right side: main content -->
+  <!-- Logo mark -->
+  <g transform="translate(700, 175)">
+    <!-- D shape for DeepIndex -->
+    <rect x="0" y="0" width="48" height="48" rx="10" fill="url(#accent)"/>
+    <text x="24" y="34" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">D</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="766" y="213" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="52" font-weight="700" fill="#e6edf3" letter-spacing="-1">DeepIndex</text>
+
+  <!-- Gradient underline -->
+  <rect x="700" y="222" width="520" height="3" rx="2" fill="url(#accent)"/>
+
+  <!-- Tagline -->
+  <text x="700" y="268" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#8b949e">Semantic code search + MCP tools for Claude Code</text>
+
+  <!-- Feature pills -->
+  <g transform="translate(700, 300)">
+    <!-- Pill 1 -->
+    <rect x="0" y="0" width="110" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <text x="55" y="20" font-family="monospace" font-size="12" fill="#3fb950" text-anchor="middle">● Local</text>
+
+    <!-- Pill 2 -->
+    <rect x="120" y="0" width="100" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <text x="170" y="20" font-family="monospace" font-size="12" fill="#58a6ff" text-anchor="middle">● Free</text>
+
+    <!-- Pill 3 -->
+    <rect x="230" y="0" width="120" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <text x="290" y="20" font-family="monospace" font-size="12" fill="#d2a8ff" text-anchor="middle">● Offline</text>
+
+    <!-- Pill 4 -->
+    <rect x="360" y="0" width="140" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <text x="430" y="20" font-family="monospace" font-size="12" fill="#ffa657" text-anchor="middle">● MCP Native</text>
+  </g>
+
+  <!-- MCP tools list -->
+  <g transform="translate(700, 360)">
+    <text x="0" y="0" font-family="monospace" font-size="13" fill="#6e7681">5 MCP tools for Claude Code:</text>
+    <text x="0" y="26" font-family="monospace" font-size="13" fill="#8b949e">  semantic_search  ·  find_related_code  ·  find_todos</text>
+    <text x="0" y="48" font-family="monospace" font-size="13" fill="#8b949e">  explain_error  ·  trace_request_flow</text>
+  </g>
+
+  <!-- Ollama badge -->
+  <g transform="translate(700, 440)">
+    <rect x="0" y="0" width="160" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="80" y="21" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">Powered by Ollama</text>
+  </g>
+
+  <!-- FAISS badge -->
+  <g transform="translate(872, 440)">
+    <rect x="0" y="0" width="140" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="70" y="21" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">FAISS + SQLite</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="600" width="1280" height="40" fill="#161b22" opacity="0.8"/>
+  <text x="640" y="625" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#6e7681" text-anchor="middle">github.com/themailmans/deepindex  ·  npm install -g deepindex  ·  MIT License  ·  Tyler Mailman</text>
+
+</svg>

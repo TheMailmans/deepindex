@@ -1,5 +1,5 @@
 {
-  "name": "DEEPINDEX-monorepo",
+  "name": "deepindex-monorepo",
   "version": "1.0.0",
   "description": "Local-first code indexing + semantic search + MCP tools for Claude",
   "type": "module",
@@ -29,6 +29,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/themailmans/DEEPINDEX.git"
+    "url": "https://github.com/themailmans/deepindex.git"
   }
 }

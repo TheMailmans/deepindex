@@ -28,8 +28,8 @@ const __dirname = path.dirname(__filename);
 const program = new Command();
 
 program
-  .name('DEEPINDEX')
-  .description('DEEPINDEX - local-first semantic code search')
+  .name('deepindex')
+  .description('deepindex - local-first semantic code search')
   .version('0.1.0');
 
 // Helper to load config or exit with message
