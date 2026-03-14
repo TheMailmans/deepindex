@@ -1,118 +1,86 @@
 # EmbedContext
 
-> **Local-first code indexing + semantic search + MCP tools for Claude**
+Local-first semantic code search + MCP tools for Claude Code. No cloud. No cost. Runs on your machine.
 
-EmbedContext gives Claude fast, local understanding of your codebase without uploading it anywhere.
+## What it does
 
-## What is EmbedContext?
+EmbedContext indexes your codebase with local Ollama embeddings and exposes 5 search tools to Claude Code via MCP. Instead of pasting files into context, Claude searches your codebase semantically — finding the right code by meaning, not just keywords.
 
-EmbedContext is a universal development context system that combines:
-- **Semantic code search** using Ollama embeddings (local, offline-capable)
-- **Auto-generated memory bank** providing persistent LLM context
-- **MCP integration** for Claude Code with 5 specialized search tools
+## Quick Install
 
-Works with ANY codebase through simple JSON configuration.
-
-## Features
-
-- **Semantic Code Search** - Find code by meaning, not just keywords
-- **Hybrid Search** - Combines semantic + SQLite FTS5 keyword search
-- **Claude Code Integration** - 5 MCP tools for intelligent code assistance
-- **Universal** - Works with Rust, TypeScript, Python, Go, Java, and more
-- **Configurable** - Simple JSON config for domains and patterns
-- **Local & Fast** - Runs entirely on your machine with Ollama
-
-## Quick Start
+Requires [Ollama](https://ollama.com) running with `nomic-embed-text`:
 
 ```bash
-# Install globally
+ollama pull nomic-embed-text
 npm install -g embedcontext
 
-# Initialize in your project
 cd your-project
-embedcontext init
-
-# Build embeddings index
-embedcontext index
-
-# Search your codebase
-embedcontext search "authentication flow"
+embedcontext init     # creates embedcontext.json
+embedcontext index    # builds vector index (~30s)
+embedcontext mcp-config  # outputs Claude Desktop config
 ```
 
-## MCP Tools for Claude
+Add the MCP config output to your Claude Desktop settings and restart. Done.
 
-When connected to Claude Desktop, you get 5 specialized tools:
+→ Full guide: [docs/setup.md](docs/setup.md)
 
-- `semantic_search` - Find code by conceptual similarity
-- `find_related_code` - Discover related implementations
-- `explain_error` - Search debug logs for solutions
-- `find_todos` - List all TODO/FIXME markers
-- `trace_request_flow` - Trace features across layers
+## 5 MCP Tools
 
-### Claude Desktop Setup
+| Tool | What it does |
+|------|-------------|
+| `semantic_search` | Find code by meaning, not keywords |
+| `find_related_code` | Show everything related to a file before you change it |
+| `explain_error` | Search debug history for similar errors and solutions |
+| `find_todos` | List every TODO/FIXME in the codebase by domain |
+| `trace_request_flow` | Trace a feature across frontend, backend, and database layers |
+
+## CLI Commands
 
 ```bash
-# Generate MCP config for Claude Desktop
-embedcontext mcp-config
+embedcontext doctor      # check environment health
+embedcontext init        # create embedcontext.json
+embedcontext index       # build/rebuild vector index
+embedcontext search "query"  # search from the terminal
+embedcontext stats       # index status and chunk counts
+embedcontext clean       # remove index data
+embedcontext mcp-config  # output Claude Desktop MCP config
 ```
 
-Add the output to your Claude Desktop configuration file.
+## Why local?
+
+- **Free:** No API calls, no per-query cost
+- **Private:** Your code never leaves your machine
+- **Fast:** FAISS + SQLite FTS5 hybrid search, results in milliseconds
+- **Works offline:** No internet required after setup
 
 ## Configuration
 
-Create `embedcontext.json` in your project root:
+`embedcontext.json` in your project root controls what gets indexed:
 
 ```json
 {
-  "schemaVersion": 1,
   "projectName": "my-project",
   "projectType": "typescript",
   "rootDir": ".",
-  "indexDir": ".embedcontext",
   "domains": [
     {
       "name": "src",
       "patterns": ["src/**/*.ts"],
       "description": "Source code"
     }
-  ]
+  ],
+  "embeddingsModel": "nomic-embed-text",
+  "chunkSize": 512
 }
 ```
 
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `embedcontext init` | Initialize config in current directory |
-| `embedcontext index` | Build embeddings index |
-| `embedcontext search <query>` | Search codebase |
-| `embedcontext stats` | Show index statistics |
-| `embedcontext mcp-config` | Output MCP config for Claude Desktop |
-| `embedcontext doctor` | Check environment setup |
-| `embedcontext clean` | Remove index data |
+Use `.embedcontextignore` to exclude files (same syntax as `.gitignore`).
 
 ## Requirements
 
 - Node.js 18+
 - Ollama with `nomic-embed-text` model
-- Claude Desktop (for MCP integration)
-
-### Install Ollama
-
-```bash
-# macOS
-brew install ollama
-ollama serve
-ollama pull nomic-embed-text
-```
-
-## How It Works
-
-1. **Configure** - Define project domains in `embedcontext.json`
-2. **Index** - Code is chunked and embedded using Ollama
-3. **Search** - Semantic + keyword hybrid search with FAISS + SQLite FTS5
-4. **MCP** - Claude Code gets 5 specialized search tools
 
 ## License
 
-MIT - Tyler Mailman
+MIT — Tyler Mailman

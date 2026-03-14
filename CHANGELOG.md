@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Removed broken `watch` script referencing non-existent `watcher.ts`
+- Fixed `init-project.sh` hardcoding absolute `rootDir` path (now uses `"."`)
+
+### Added
+- `prepublishOnly` build step in `embeddings/package.json` — ensures dist is always fresh on publish
+- `scripts/init-project.js` — cross-platform Node.js init script (works on Windows, macOS, Linux)
+- `docs/setup.md` — full step-by-step setup guide from Ollama install through MCP config
+- `openclaw-skill/SKILL.md` — OpenClaw agent skill for using EmbedContext in AI assistant workflows
+- `*.faiss` to `.gitignore`
+
+### Changed
+- Rewrote `README.md` — sharper, faster to scan, 30-second install path up front
+
 ## [0.1.0] - 2026-01-09
 
 ### Added

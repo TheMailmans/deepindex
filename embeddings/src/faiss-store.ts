@@ -7,8 +7,15 @@ import faissNode from 'faiss-node';
 const { IndexFlatL2 } = faissNode;
 import * as fs from 'fs';
 
+/** FAISS IndexFlatL2 instance (no TS types provided by faiss-node) */
+interface FaissIndex {
+  add(vector: number[]): void;
+  search(vector: number[], k: number): { labels: number[]; distances: number[] };
+  write(path: string): void;
+}
+
 export class FaissStore {
-  private index: any = null;
+  private index: FaissIndex | null = null;
   private dimension: number;
   private indexPath: string;
   private vectors: number[][] = [];

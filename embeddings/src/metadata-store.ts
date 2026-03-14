@@ -135,7 +135,7 @@ export class MetadataStore {
    */
   getChunkById(id: string): ChunkMetadata | null {
     const stmt = this.db.prepare('SELECT * FROM chunks WHERE id = ?');
-    const row = stmt.get(id) as any;
+    const row = stmt.get(id) as Record<string, unknown>;
 
     if (!row) return null;
 
@@ -147,7 +147,7 @@ export class MetadataStore {
    */
   getChunkByVectorId(vectorId: number): ChunkMetadata | null {
     const stmt = this.db.prepare('SELECT * FROM chunks WHERE vector_id = ?');
-    const row = stmt.get(vectorId) as any;
+    const row = stmt.get(vectorId) as Record<string, unknown>;
 
     if (!row) return null;
 
@@ -159,7 +159,7 @@ export class MetadataStore {
    */
   getChunksByFile(filePath: string): ChunkMetadata[] {
     const stmt = this.db.prepare('SELECT * FROM chunks WHERE file_path = ? ORDER BY start_line');
-    const rows = stmt.all(filePath) as any[];
+    const rows = stmt.all(filePath) as Record<string, unknown>[];
 
     return rows.map((row) => this.rowToChunkMetadata(row));
   }
@@ -184,7 +184,7 @@ export class MetadataStore {
       LIMIT ?
     `);
 
-    const rows = stmt.all(query, limit) as any[];
+    const rows = stmt.all(query, limit) as Record<string, unknown>[];
     return rows.map((row) => this.rowToChunkMetadata(row));
   }
 
@@ -193,7 +193,7 @@ export class MetadataStore {
    */
   getTodos(domain?: string): ChunkMetadata[] {
     let query = 'SELECT * FROM chunks WHERE is_todo = 1';
-    const params: any[] = [];
+    const params: (string | number)[] = [];
 
     if (domain) {
       query += ' AND domain = ?';
@@ -203,7 +203,7 @@ export class MetadataStore {
     query += ' ORDER BY file_path, start_line';
 
     const stmt = this.db.prepare(query);
-    const rows = stmt.all(...params) as any[];
+    const rows = stmt.all(...params) as Record<string, unknown>[];
 
     return rows.map((row) => this.rowToChunkMetadata(row));
   }
@@ -213,7 +213,7 @@ export class MetadataStore {
    */
   getDebugLogs(): ChunkMetadata[] {
     const stmt = this.db.prepare('SELECT * FROM chunks WHERE is_debug_log = 1 ORDER BY file_path, start_line');
-    const rows = stmt.all() as any[];
+    const rows = stmt.all() as Record<string, unknown>[];
 
     return rows.map((row) => this.rowToChunkMetadata(row));
   }
@@ -232,7 +232,7 @@ export class MetadataStore {
    */
   getChunksByDomain(domain: string): ChunkMetadata[] {
     const stmt = this.db.prepare('SELECT * FROM chunks WHERE domain = ? ORDER BY file_path, start_line');
-    const rows = stmt.all(domain) as any[];
+    const rows = stmt.all(domain) as Record<string, unknown>[];
 
     return rows.map((row) => this.rowToChunkMetadata(row));
   }
@@ -292,22 +292,22 @@ export class MetadataStore {
     this.db.close();
   }
 
-  private rowToChunkMetadata(row: any): ChunkMetadata {
+  private rowToChunkMetadata(row: Record<string, unknown>): ChunkMetadata {
     return {
-      id: row.id,
-      filePath: row.file_path,
-      startLine: row.start_line,
-      endLine: row.end_line,
-      domain: row.domain,
-      fileType: row.file_type,
-      symbolName: row.symbol_name || undefined,
-      symbolType: row.symbol_type || undefined,
-      tags: JSON.parse(row.tags || '[]'),
+      id: row.id as string,
+      filePath: row.file_path as string,
+      startLine: row.start_line as number,
+      endLine: row.end_line as number,
+      domain: row.domain as string,
+      fileType: row.file_type as string,
+      symbolName: (row.symbol_name as string | undefined) || undefined,
+      symbolType: (row.symbol_type as string | undefined) || undefined,
+      tags: JSON.parse((row.tags as string) || '[]'),
       isTodo: row.is_todo === 1,
       isDebugLog: row.is_debug_log === 1,
-      chunkText: row.chunk_text,
-      lastModified: row.last_modified,
-      vectorId: row.vector_id,
+      chunkText: row.chunk_text as string,
+      lastModified: row.last_modified as string,
+      vectorId: row.vector_id as number,
     };
   }
 }

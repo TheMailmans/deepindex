@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "index": "npm run build && node dist/cli.js index",
     "search": "npm run build && node dist/cli.js search",
-    "watch": "npm run build && node dist/watcher.js",
     "mcp-server": "npm run build && node dist/mcp-server.js",
     "stats": "node dist/cli.js stats",
     "dev": "tsc --watch"

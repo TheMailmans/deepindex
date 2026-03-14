@@ -18,6 +18,7 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   CallToolRequestSchema,
+  CallToolResult,
   ListToolsRequestSchema,
   Tool,
 } from '@modelcontextprotocol/sdk/types.js';
@@ -43,6 +44,34 @@ const DOMAINS = config.domains.reduce((acc, d) => {
 // Configuration
 const DATA_PATH = path.join(config.indexDirAbs, 'data');
 const EMBEDDING_DIMENSION = 768;
+
+type MCPToolResult = CallToolResult;
+
+interface SearchArgs {
+  query: string;
+  max_results?: number;
+  domain?: string;
+  file_type?: string;
+}
+
+interface RelatedCodeArgs {
+  file_path: string;
+  max_results?: number;
+}
+
+interface ErrorArgs {
+  error_description: string;
+  max_results?: number;
+}
+
+interface TodoArgs {
+  domain?: string;
+}
+
+interface TraceFlowArgs {
+  flow_description: string;
+  max_results?: number;
+}
 
 class EmbedContextServer {
   private server: Server;
@@ -89,15 +118,15 @@ class EmbedContextServer {
 
       switch (name) {
         case 'semantic_search':
-          return await this.handleSemanticSearch(args);
+          return await this.handleSemanticSearch(args as unknown as SearchArgs);
         case 'find_related_code':
-          return await this.handleFindRelatedCode(args);
+          return await this.handleFindRelatedCode(args as unknown as RelatedCodeArgs);
         case 'explain_error':
-          return await this.handleExplainError(args);
+          return await this.handleExplainError(args as unknown as ErrorArgs);
         case 'find_todos':
-          return await this.handleFindTodos(args);
+          return await this.handleFindTodos(args as unknown as TodoArgs);
         case 'trace_request_flow':
-          return await this.handleTraceRequestFlow(args);
+          return await this.handleTraceRequestFlow(args as unknown as TraceFlowArgs);
         default:
           throw new Error(`Unknown tool: ${name}`);
       }
@@ -235,11 +264,11 @@ class EmbedContextServer {
     });
   }
 
-  private async handleSemanticSearch(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const query = args.query as string;
-    const maxResults = (args.max_results as number) || 5;
-    const domain = args.domain as string | undefined;
-    const fileType = args.file_type as string | undefined;
+  private async handleSemanticSearch(args: SearchArgs): Promise<MCPToolResult> {
+    const query = args.query;
+    const maxResults = args.max_results || 5;
+    const domain = args.domain;
+    const fileType = args.file_type;
 
     const results = await this.queryEngine!.search(query, {
       maxResults,
@@ -283,9 +312,9 @@ class EmbedContextServer {
     };
   }
 
-  private async handleFindRelatedCode(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const filePath = args.file_path as string;
-    const maxResults = (args.max_results as number) || 5;
+  private async handleFindRelatedCode(args: RelatedCodeArgs): Promise<MCPToolResult> {
+    const filePath = args.file_path;
+    const maxResults = args.max_results || 5;
 
     const results = await this.queryEngine!.findRelatedCode(filePath, maxResults);
 
@@ -321,9 +350,9 @@ class EmbedContextServer {
     };
   }
 
-  private async handleExplainError(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const errorDescription = args.error_description as string;
-    const maxResults = (args.max_results as number) || 5;
+  private async handleExplainError(args: ErrorArgs): Promise<MCPToolResult> {
+    const errorDescription = args.error_description;
+    const maxResults = args.max_results || 5;
 
     const results = await this.queryEngine!.searchDebugLogs(errorDescription, maxResults);
 
@@ -359,8 +388,8 @@ class EmbedContextServer {
     };
   }
 
-  private async handleFindTodos(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const domain = args.domain as string | undefined;
+  private async handleFindTodos(args: TodoArgs): Promise<MCPToolResult> {
+    const domain = args.domain;
 
     const todos = this.queryEngine!.getTodos(domain);
 
@@ -404,9 +433,9 @@ class EmbedContextServer {
     };
   }
 
-  private async handleTraceRequestFlow(args: any): Promise<{ content: Array<{ type: string; text: string }> }> {
-    const flowDescription = args.flow_description as string;
-    const maxResults = (args.max_results as number) || 10;
+  private async handleTraceRequestFlow(args: TraceFlowArgs): Promise<MCPToolResult> {
+    const flowDescription = args.flow_description;
+    const maxResults = args.max_results || 10;
 
     const { frontend, backend, database } = await this.queryEngine!.traceRequestFlow(flowDescription, maxResults);
 

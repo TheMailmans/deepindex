@@ -103,8 +103,7 @@ When working in this project, you have access to these semantic search tools:
 
 ### Re-index Embeddings
 ```bash
-cd /Users/tylermailman/Documents/GitHub/DevContext
-node embeddings/dist/cli.js index
+npx embedcontext index
 ```
 
 ### Regenerate Memory Bank
@@ -114,23 +113,18 @@ node memory-bank/scripts/generate.js
 
 ### Test MCP Server
 ```bash
-node embeddings/dist/mcp-server.js
+npx embedcontext mcp
 ```
 
 ### Build Embeddings TypeScript
 ```bash
-cd embeddings && npm run build
+cd embeddings
+npm run build
 ```
 
 ## Current Development Focus
 
-This project is being actively developed for open-source release. Key areas:
-
-1. **Rename to EmbedContext** - Complete branding and package renaming
-2. **Three-Tier Fallback** - hybrid → rerank → keyword search modes
-3. **Security Hardening** - Input validation, path sandboxing, resource limits
-4. **New Commands** - doctor, mcp-config, clean, init improvements
-5. **Documentation** - Complete setup guides and API docs
+This project is being polished for open-source release. See ROADMAP.md for details.
 
 ## Session Initialization
 

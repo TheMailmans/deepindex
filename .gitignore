@@ -43,6 +43,9 @@ npm-debug.log*
 *.db
 *.sqlite
 
+# FAISS index files
+*.faiss
+
 # Secrets (never commit)
 *.key
 *.pem
