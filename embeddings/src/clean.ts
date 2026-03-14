@@ -1,5 +1,5 @@
 /**
- * EmbedContext Clean Command
+ * DEEPINDEX Clean Command
  * Safe index reset with confirmation
  */
 
@@ -175,7 +175,7 @@ export function printCleanResult(result: CleanResult): void {
   if (result.success) {
     if (result.filesDeleted > 0) {
       console.log(chalk.green(`\n✓ ${result.message}\n`));
-      console.log(chalk.gray('Run `embedcontext index` to rebuild the index.\n'));
+      console.log(chalk.gray('Run `DEEPINDEX index` to rebuild the index.\n'));
     } else {
       console.log(chalk.gray(`\n${result.message}\n`));
     }

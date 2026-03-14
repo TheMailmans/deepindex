@@ -1,9 +1,9 @@
 /**
- * EmbedContext Manifest Management
+ * DEEPINDEX Manifest Management
  *
  * Tracks build metadata, config hash, and validates index freshness.
  *
- * Manifest is written to .embedcontext/manifest.json after each index build.
+ * Manifest is written to .DEEPINDEX/manifest.json after each index build.
  * Used to detect stale indexes when config changes.
  */
 
@@ -150,7 +150,7 @@ export function validateManifest(config: ResolvedConfig): ManifestValidationResu
     return {
       valid: false,
       reason: 'missing',
-      message: 'No manifest found. Run `embedcontext index` to build the index.',
+      message: 'No manifest found. Run `DEEPINDEX index` to build the index.',
     };
   }
 
@@ -159,7 +159,7 @@ export function validateManifest(config: ResolvedConfig): ManifestValidationResu
     return {
       valid: false,
       reason: 'newer_version',
-      message: `Index was created by a newer version of EmbedContext (manifest v${manifest.manifestVersion}). Please upgrade.`,
+      message: `Index was created by a newer version of DEEPINDEX (manifest v${manifest.manifestVersion}). Please upgrade.`,
     };
   }
 
@@ -201,7 +201,7 @@ export function validateManifest(config: ResolvedConfig): ManifestValidationResu
     return {
       valid: false,
       reason: 'stale',
-      message: 'Config changed since last index. Run `embedcontext index` to update.',
+      message: 'Config changed since last index. Run `DEEPINDEX index` to update.',
     };
   }
 

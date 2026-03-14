@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * EmbedContext cross-platform init script
+ * DEEPINDEX cross-platform init script
  * Works on Windows, macOS, and Linux
  * Usage: node scripts/init-project.js
  */
@@ -48,16 +48,16 @@ function getDomains(type) {
 }
 
 const projectType = detectProjectType();
-const configPath = join(cwd, 'embedcontext.json');
+const configPath = join(cwd, 'DEEPINDEX.json');
 
-console.log('🚀 EmbedContext Initialization');
+console.log('🚀 DEEPINDEX Initialization');
 console.log('');
 console.log(`Project: ${projectName}`);
 console.log(`Type:    ${projectType}`);
 console.log('');
 
 if (existsSync(configPath)) {
-  console.log('⚠ embedcontext.json already exists. Delete it first or use `embedcontext init --force`.');
+  console.log('⚠ DEEPINDEX.json already exists. Delete it first or use `DEEPINDEX init --force`.');
   process.exit(1);
 }
 
@@ -66,7 +66,7 @@ const config = {
   projectName,
   projectType,
   rootDir: '.',
-  indexDir: '.embedcontext',
+  indexDir: '.DEEPINDEX',
   domains: getDomains(projectType),
   embeddingsModel: 'nomic-embed-text',
   chunkSize: 512,
@@ -74,7 +74,7 @@ const config = {
 };
 
 writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
-console.log('✅ Created embedcontext.json');
+console.log('✅ Created DEEPINDEX.json');
 
 // Create .claude structure
 const claudeInit = join(cwd, '.claude', 'INIT.md');
@@ -86,7 +86,7 @@ const initContent = `# Claude Code Initialization Protocol
 When starting a session in this project:
 
 1. **Read Memory Bank** - Load context from \`.claude/memory-bank/\`
-2. **Use EmbedContext** - Run semantic_search to explore unfamiliar code
+2. **Use DEEPINDEX** - Run semantic_search to explore unfamiliar code
 3. **Review Recent Commits** - Check git history for latest changes
 
 ## Available MCP Tools
@@ -102,7 +102,7 @@ console.log('✅ Created .claude/INIT.md');
 
 console.log('');
 console.log('Next steps:');
-console.log('  1. Review embedcontext.json and customize domains');
-console.log('  2. embedcontext doctor    → verify setup');
-console.log('  3. embedcontext index     → build embeddings');
-console.log('  4. embedcontext mcp-config → get Claude Desktop config');
+console.log('  1. Review DEEPINDEX.json and customize domains');
+console.log('  2. DEEPINDEX doctor    → verify setup');
+console.log('  3. DEEPINDEX index     → build embeddings');
+console.log('  4. DEEPINDEX mcp-config → get Claude Desktop config');

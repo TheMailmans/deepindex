@@ -1,13 +1,13 @@
 # MCP Integration with Claude Desktop
 
-EmbedContext provides an MCP (Model Context Protocol) server that gives Claude Desktop semantic search capabilities for your codebase.
+DEEPINDEX provides an MCP (Model Context Protocol) server that gives Claude Desktop semantic search capabilities for your codebase.
 
 ## Setup
 
 ### 1. Generate Configuration
 
 ```bash
-embedcontext mcp-config
+DEEPINDEX mcp-config
 ```
 
 This outputs JSON configuration for Claude Desktop.
@@ -31,11 +31,11 @@ Add the `mcpServers` section from the output:
 ```json
 {
   "mcpServers": {
-    "embedcontext-my-project": {
+    "DEEPINDEX-my-project": {
       "command": "npx",
-      "args": ["embedcontext-mcp"],
+      "args": ["DEEPINDEX-mcp"],
       "env": {
-        "EMBEDCONTEXT_CONFIG": "/path/to/your/project/embedcontext.json"
+        "DEEPINDEX_CONFIG": "/path/to/your/project/DEEPINDEX.json"
       }
     }
   }
@@ -109,23 +109,23 @@ Claude will use the semantic search tools to find relevant code and explain it.
 
 ## Multiple Projects
 
-You can add multiple EmbedContext servers for different projects:
+You can add multiple DEEPINDEX servers for different projects:
 
 ```json
 {
   "mcpServers": {
-    "embedcontext-frontend": {
+    "DEEPINDEX-frontend": {
       "command": "npx",
-      "args": ["embedcontext-mcp"],
+      "args": ["DEEPINDEX-mcp"],
       "env": {
-        "EMBEDCONTEXT_CONFIG": "/path/to/frontend/embedcontext.json"
+        "DEEPINDEX_CONFIG": "/path/to/frontend/DEEPINDEX.json"
       }
     },
-    "embedcontext-backend": {
+    "DEEPINDEX-backend": {
       "command": "npx",
-      "args": ["embedcontext-mcp"],
+      "args": ["DEEPINDEX-mcp"],
       "env": {
-        "EMBEDCONTEXT_CONFIG": "/path/to/backend/embedcontext.json"
+        "DEEPINDEX_CONFIG": "/path/to/backend/DEEPINDEX.json"
       }
     }
   }
@@ -137,7 +137,7 @@ You can add multiple EmbedContext servers for different projects:
 ### MCP server not connecting
 
 1. Check Ollama is running: `ollama serve`
-2. Verify index exists: `embedcontext stats`
+2. Verify index exists: `DEEPINDEX stats`
 3. Check config path is correct and absolute
 
 ### Slow responses
@@ -149,14 +149,14 @@ The first query may be slow while loading the index. Subsequent queries are fast
 Build the index first:
 ```bash
 cd /path/to/your/project
-embedcontext index
+DEEPINDEX index
 ```
 
 ### Stale results
 
 Rebuild the index after code changes:
 ```bash
-embedcontext index
+DEEPINDEX index
 ```
 
 The MCP server will warn if the index is stale.

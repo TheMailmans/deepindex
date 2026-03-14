@@ -1,6 +1,6 @@
 /**
- * EmbedContext Init Command
- * Initialize a project with embedcontext.json
+ * DEEPINDEX Init Command
+ * Initialize a project with DEEPINDEX.json
  */
 
 import chalk from 'chalk';
@@ -128,18 +128,18 @@ async function prompt(question: string, defaultValue?: string): Promise<string> 
 }
 
 /**
- * Initialize embedcontext.json in the current directory
+ * Initialize DEEPINDEX.json in the current directory
  */
 export async function init(options: InitOptions = {}): Promise<InitResult> {
   const cwd = process.cwd();
-  const configPath = join(cwd, 'embedcontext.json');
+  const configPath = join(cwd, 'DEEPINDEX.json');
 
   // Check if config already exists
   if (existsSync(configPath) && !options.force) {
     return {
       success: false,
       configPath,
-      message: 'embedcontext.json already exists. Use --force to overwrite.',
+      message: 'DEEPINDEX.json already exists. Use --force to overwrite.',
     };
   }
 
@@ -151,7 +151,7 @@ export async function init(options: InitOptions = {}): Promise<InitResult> {
   // If not using defaults, prompt for project name
   let finalProjectName = projectName;
   if (!options.yes) {
-    console.log(chalk.cyan.bold('\n🚀 EmbedContext Initialization\n'));
+    console.log(chalk.cyan.bold('\n🚀 DEEPINDEX Initialization\n'));
     console.log(chalk.gray(`Detected project type: ${projectType}\n`));
 
     finalProjectName = await prompt('Project name:', projectName);
@@ -163,7 +163,7 @@ export async function init(options: InitOptions = {}): Promise<InitResult> {
     projectName: finalProjectName,
     projectType,
     rootDir: '.',
-    indexDir: '.embedcontext',
+    indexDir: '.DEEPINDEX',
     domains,
     embeddingsModel: 'nomic-embed-text',
     chunkSize: 512,
@@ -195,10 +195,10 @@ export function printInitResult(result: InitResult): void {
   if (result.success) {
     console.log(chalk.green(`\n✓ ${result.message}\n`));
     console.log(chalk.gray('Next steps:'));
-    console.log(chalk.gray('  1. Review and customize embedcontext.json'));
-    console.log(chalk.gray('  2. Run `embedcontext doctor` to verify setup'));
-    console.log(chalk.gray('  3. Run `embedcontext index` to build embeddings'));
-    console.log(chalk.gray('  4. Run `embedcontext mcp-config` to get Claude Desktop config\n'));
+    console.log(chalk.gray('  1. Review and customize DEEPINDEX.json'));
+    console.log(chalk.gray('  2. Run `DEEPINDEX doctor` to verify setup'));
+    console.log(chalk.gray('  3. Run `DEEPINDEX index` to build embeddings'));
+    console.log(chalk.gray('  4. Run `DEEPINDEX mcp-config` to get Claude Desktop config\n'));
   } else {
     console.log(chalk.red(`\n✗ ${result.message}\n`));
   }

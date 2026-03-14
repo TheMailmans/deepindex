@@ -1,10 +1,10 @@
-# EmbedContext - Claude Code Project Configuration
+# DEEPINDEX - Claude Code Project Configuration
 
-> **EmbedContext** — local-first code indexing + semantic search + MCP tools for Claude
+> **DEEPINDEX** — local-first code indexing + semantic search + MCP tools for Claude
 
 ## Project Overview
 
-EmbedContext is a **universal development context system** that provides semantic code search and auto-generated memory banks for any codebase. It gives Claude fast, local understanding of your codebase without uploading it anywhere.
+DEEPINDEX is a **universal development context system** that provides semantic code search and auto-generated memory banks for any codebase. It gives Claude fast, local understanding of your codebase without uploading it anywhere.
 
 **Status:** v0.1.0 (beta) - actively being developed for open-source release
 **Author:** Tyler Mailman
@@ -18,7 +18,7 @@ EmbedContext is a **universal development context system** that provides semanti
 ## Architecture
 
 ```
-EmbedContext/
+DEEPINDEX/
 ├── embeddings/           # Core semantic search system (TypeScript)
 │   ├── src/
 │   │   ├── cli.ts              # CLI interface (index, search commands)
@@ -41,21 +41,21 @@ EmbedContext/
 │   └── templates/        # Mustache-style templates
 ├── config/               # JSON schemas and examples
 ├── scripts/              # Installation helpers
-├── .embedcontext/
+├── .DEEPINDEX/
 │   └── data/             # Embeddings index (FAISS, SQLite)
 ├── .claude/
 │   ├── INIT.md           # Session initialization protocol
 │   └── memory-bank/      # Generated context files
 │       ├── core/         # Project-wide context
 │       └── knowledge/    # Domain-specific knowledge
-└── embedcontext.json     # Project configuration
+└── DEEPINDEX.json     # Project configuration
 ```
 
 ## Key Files to Know
 
 | File | Purpose |
 |------|---------|
-| `embedcontext.json` | Project config: domains, patterns, keywords |
+| `DEEPINDEX.json` | Project config: domains, patterns, keywords |
 | `embeddings/src/mcp-server.ts` | MCP server with 5 search tools |
 | `embeddings/src/query-engine.ts` | Core search logic (hybrid semantic + FTS5) |
 | `embeddings/src/config/config-loader.ts` | Configuration management |
@@ -103,7 +103,7 @@ When working in this project, you have access to these semantic search tools:
 
 ### Re-index Embeddings
 ```bash
-npx embedcontext index
+npx DEEPINDEX index
 ```
 
 ### Regenerate Memory Bank
@@ -113,7 +113,7 @@ node memory-bank/scripts/generate.js
 
 ### Test MCP Server
 ```bash
-npx embedcontext mcp
+npx DEEPINDEX mcp
 ```
 
 ### Build Embeddings TypeScript
@@ -138,5 +138,5 @@ When starting a session:
 ## Important Notes
 
 - **Ollama Required** - Ensure `ollama serve` is running with `nomic-embed-text` model
-- **Config Auto-Discovery** - Commands auto-find `embedcontext.json` by walking up directories
+- **Config Auto-Discovery** - Commands auto-find `DEEPINDEX.json` by walking up directories
 - **Self-Documenting** - This project uses itself for its own development context

@@ -1,4 +1,4 @@
-# EmbedContext Setup Guide
+# DEEPINDEX Setup Guide
 
 Full step-by-step setup from scratch to first search.
 
@@ -36,19 +36,19 @@ ollama serve
 ollama pull nomic-embed-text
 ```
 
-This is the only model EmbedContext needs. ~270MB, runs fully offline.
+This is the only model DEEPINDEX needs. ~270MB, runs fully offline.
 
 ---
 
-## Step 3 — Install EmbedContext
+## Step 3 — Install DEEPINDEX
 
 ```bash
-npm install -g embedcontext
+npm install -g DEEPINDEX
 ```
 
 Verify it's installed:
 ```bash
-embedcontext --version
+DEEPINDEX --version
 ```
 
 ---
@@ -56,7 +56,7 @@ embedcontext --version
 ## Step 4 — Verify Your Setup
 
 ```bash
-embedcontext doctor
+DEEPINDEX doctor
 ```
 
 All checks should be green:
@@ -76,17 +76,17 @@ If Ollama shows red: make sure `ollama serve` is running in another terminal.
 Navigate to your project root:
 ```bash
 cd /path/to/your/project
-embedcontext init
+DEEPINDEX init
 ```
 
-This creates `embedcontext.json`. Review it and adjust the `domains` section to match your project structure.
+This creates `DEEPINDEX.json`. Review it and adjust the `domains` section to match your project structure.
 
 ---
 
 ## Step 6 — Build the Index
 
 ```bash
-embedcontext index
+DEEPINDEX index
 ```
 
 This crawls your codebase, chunks the files, runs them through Ollama, and builds a FAISS vector index. Takes ~30 seconds for small projects, a few minutes for large ones.
@@ -96,7 +96,7 @@ This crawls your codebase, chunks the files, runs them through Ollama, and build
 ## Step 7 — Test a Search
 
 ```bash
-embedcontext search "authentication flow"
+DEEPINDEX search "authentication flow"
 ```
 
 You should see ranked results with file paths, line numbers, and code snippets.
@@ -107,7 +107,7 @@ You should see ranked results with file paths, line numbers, and code snippets.
 
 Generate your MCP config:
 ```bash
-embedcontext mcp-config
+DEEPINDEX mcp-config
 ```
 
 Copy the output and add it to your Claude Desktop config file:
@@ -122,19 +122,19 @@ Restart Claude Desktop. You'll now have 5 semantic search tools available in eve
 
 Re-index after significant code changes:
 ```bash
-embedcontext index
+DEEPINDEX index
 ```
 
 Check if your index is stale:
 ```bash
-embedcontext stats
+DEEPINDEX stats
 ```
 
 ---
 
 ## Excluding Files
 
-Create `.embedcontextignore` in your project root (same syntax as `.gitignore`):
+Create `.DEEPINDEXignore` in your project root (same syntax as `.gitignore`):
 ```
 node_modules/
 dist/
@@ -153,10 +153,10 @@ secrets/
 → Run `ollama pull nomic-embed-text`
 
 **"Index not found"**
-→ Run `embedcontext index` first
+→ Run `DEEPINDEX index` first
 
 **Slow indexing**
-→ Normal for large codebases. Reduce scope by tightening domain patterns in `embedcontext.json`
+→ Normal for large codebases. Reduce scope by tightening domain patterns in `DEEPINDEX.json`
 
 **Wrong files being indexed**
-→ Add exclusions to `.embedcontextignore`
+→ Add exclusions to `.DEEPINDEXignore`

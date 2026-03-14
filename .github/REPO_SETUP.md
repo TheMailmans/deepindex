@@ -8,7 +8,7 @@ When creating or updating the GitHub repo, configure these settings.
 > Local-first semantic code search + MCP tools for Claude Code. No cloud, no cost, runs on your machine.
 
 **Website:**
-> https://www.npmjs.com/package/embedcontext *(add after first npm publish)*
+> https://www.npmjs.com/package/DEEPINDEX *(add after first npm publish)*
 
 **Topics (add all of these):**
 ```
@@ -47,7 +47,7 @@ For the release workflow to work, add these repository secrets:
 ## Social Preview Image
 
 Consider creating a banner image (1280×640px) showing:
-- EmbedContext logo/name
+- DEEPINDEX logo/name
 - Tagline: "Semantic code search for Claude Code"
 - Simple diagram or code snippet showing the CLI in action
 

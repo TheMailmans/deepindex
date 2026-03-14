@@ -1,5 +1,5 @@
 /**
- * EmbedContext MCP Config Command
+ * DEEPINDEX MCP Config Command
  * Outputs configuration for Claude Desktop MCP integration
  */
 
@@ -39,30 +39,30 @@ export function generateMCPConfig(options: MCPConfigOptions = {}): MCPConfig {
     const npmBinPath = process.execPath.includes('node') ? 'npx' : 'npx';
     return {
       mcpServers: {
-        'embedcontext': {
+        'DEEPINDEX': {
           command: npmBinPath,
-          args: ['embedcontext-mcp'],
+          args: ['DEEPINDEX-mcp'],
           env: {
-            EMBEDCONTEXT_CONFIG: '/path/to/your/project/embedcontext.json',
+            DEEPINDEX_CONFIG: '/path/to/your/project/DEEPINDEX.json',
           },
         },
       },
     };
   }
 
-  const serverName = options.name || `embedcontext-${config.projectName.toLowerCase().replace(/\s+/g, '-')}`;
+  const serverName = options.name || `DEEPINDEX-${config.projectName.toLowerCase().replace(/\s+/g, '-')}`;
 
   // Get the path to the MCP server
-  // When installed globally: embedcontext-mcp
+  // When installed globally: DEEPINDEX-mcp
   // When running locally: node dist/mcp-server.js
   const mcpConfig: MCPConfig = {
     mcpServers: {
       [serverName]: {
         command: 'npx',
-        args: ['embedcontext-mcp'],
+        args: ['DEEPINDEX-mcp'],
         env: configPath
           ? {
-              EMBEDCONTEXT_CONFIG: resolve(configPath),
+              DEEPINDEX_CONFIG: resolve(configPath),
             }
           : undefined,
       },
@@ -99,7 +99,7 @@ export function printMCPConfig(options: MCPConfigOptions = {}): void {
   // Check if config was found
   const configPath = findConfig();
   if (!configPath) {
-    console.log(chalk.yellow('⚠ No embedcontext.json found in current directory.'));
-    console.log(chalk.gray('  Update EMBEDCONTEXT_CONFIG path after running `embedcontext init`\n'));
+    console.log(chalk.yellow('⚠ No DEEPINDEX.json found in current directory.'));
+    console.log(chalk.gray('  Update DEEPINDEX_CONFIG path after running `DEEPINDEX init`\n'));
   }
 }

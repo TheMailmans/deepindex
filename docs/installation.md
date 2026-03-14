@@ -6,24 +6,24 @@
 - Ollama (for embeddings)
 - ~500MB disk space for dependencies
 
-## Install EmbedContext
+## Install DEEPINDEX
 
 ### Global Installation (Recommended)
 
 ```bash
-npm install -g embedcontext
+npm install -g DEEPINDEX
 ```
 
 ### Local Installation
 
 ```bash
-npm install embedcontext
-npx embedcontext --help
+npm install DEEPINDEX
+npx DEEPINDEX --help
 ```
 
 ## Install Ollama
 
-EmbedContext uses Ollama for generating embeddings locally.
+DEEPINDEX uses Ollama for generating embeddings locally.
 
 ### macOS
 
@@ -64,11 +64,11 @@ ollama pull nomic-embed-text
 ## Verify Installation
 
 ```bash
-# Check EmbedContext
-embedcontext --version
+# Check DEEPINDEX
+DEEPINDEX --version
 
 # Check environment
-embedcontext doctor
+DEEPINDEX doctor
 ```
 
 ## Troubleshooting
@@ -89,18 +89,18 @@ ollama pull nomic-embed-text
 
 ### Native dependency errors (FAISS)
 
-EmbedContext will automatically fall back to keyword-only search if FAISS fails to load. This is normal on some systems.
+DEEPINDEX will automatically fall back to keyword-only search if FAISS fails to load. This is normal on some systems.
 
 To check your search tier:
 ```bash
-embedcontext doctor
+DEEPINDEX doctor
 ```
 
 If you see "Search tier: keyword-only", semantic search is disabled but keyword search still works.
 
 ### Node.js version too old
 
-EmbedContext requires Node.js 18+:
+DEEPINDEX requires Node.js 18+:
 ```bash
 node --version  # Should be v18.x.x or higher
 ```
@@ -108,10 +108,10 @@ node --version  # Should be v18.x.x or higher
 ## Uninstall
 
 ```bash
-npm uninstall -g embedcontext
+npm uninstall -g DEEPINDEX
 ```
 
 To remove index data:
 ```bash
-rm -rf .embedcontext/
+rm -rf .DEEPINDEX/
 ```

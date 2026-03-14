@@ -3,13 +3,13 @@
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 HOOK_PATH="$PROJECT_ROOT/.git/hooks/post-commit"
 
-echo "📦 Installing EmbedContext Memory Bank git hook..."
+echo "📦 Installing DEEPINDEX Memory Bank git hook..."
 echo ""
 
 # Create post-commit hook
 cat > "$HOOK_PATH" << 'EOF'
 #!/usr/bin/env bash
-# EmbedContext Memory Bank Auto-Update Hook
+# DEEPINDEX Memory Bank Auto-Update Hook
 # Regenerates memory bank files after each commit
 
 MEMORY_SCRIPT="$(git rev-parse --show-toplevel)/.claude/memory-bank/scripts/update.sh"

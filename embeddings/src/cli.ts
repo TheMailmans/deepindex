@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * EmbedContext CLI
+ * DEEPINDEX CLI
  * Command-line interface for semantic code search
  */
 
@@ -28,8 +28,8 @@ const __dirname = path.dirname(__filename);
 const program = new Command();
 
 program
-  .name('embedcontext')
-  .description('EmbedContext - local-first semantic code search')
+  .name('DEEPINDEX')
+  .description('DEEPINDEX - local-first semantic code search')
   .version('0.1.0');
 
 // Helper to load config or exit with message
@@ -54,8 +54,8 @@ function requireConfig(): {
     };
   } catch (error) {
     console.error(chalk.red('✗ Failed to load configuration'));
-    console.error(chalk.gray('  Make sure embedcontext.json exists or set EMBEDCONTEXT_CONFIG env variable'));
-    console.error(chalk.gray('  Run `embedcontext init` to create a new configuration'));
+    console.error(chalk.gray('  Make sure DEEPINDEX.json exists or set DEEPINDEX_CONFIG env variable'));
+    console.error(chalk.gray('  Run `DEEPINDEX init` to create a new configuration'));
     if (error instanceof Error) {
       console.error(chalk.gray(`  ${error.message}`));
     }
@@ -66,7 +66,7 @@ function requireConfig(): {
 // INIT command - can run without config
 program
   .command('init')
-  .description('Initialize embedcontext.json in the current directory')
+  .description('Initialize DEEPINDEX.json in the current directory')
   .option('-f, --force', 'Overwrite existing configuration')
   .option('-y, --yes', 'Skip prompts and use defaults')
   .action(async (options: { force?: boolean; yes?: boolean }) => {
@@ -113,7 +113,7 @@ program
   .action(async () => {
     const { config, projectPath, dataPath, domains, projectName } = requireConfig();
 
-    console.log(chalk.cyan.bold(`\n🚀 EmbedContext Indexer - ${projectName}\n`));
+    console.log(chalk.cyan.bold(`\n🚀 DEEPINDEX Indexer - ${projectName}\n`));
 
     try {
       // Ensure data directory exists
@@ -182,9 +182,9 @@ program
     if (!manifestResult.valid) {
       if (manifestResult.reason === 'stale') {
         console.log(chalk.yellow('⚠ Index may be stale: config changed since last index'));
-        console.log(chalk.gray('  Run `embedcontext index` to update\n'));
+        console.log(chalk.gray('  Run `DEEPINDEX index` to update\n'));
       } else if (manifestResult.reason === 'missing') {
-        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
+        console.error(chalk.red('✗ Index not found. Please run: DEEPINDEX index'));
         process.exit(1);
       }
     }
@@ -198,7 +198,7 @@ program
 
       // Check if index exists
       if (!faissStore.exists()) {
-        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
+        console.error(chalk.red('✗ Index not found. Please run: DEEPINDEX index'));
         process.exit(1);
       }
 
@@ -273,9 +273,9 @@ program
     const manifestResult = validateManifest(config);
     if (!manifestResult.valid) {
       if (manifestResult.reason === 'stale') {
-        console.log(chalk.yellow('\n⚠ Config changed since last index. Run `embedcontext index` to update.\n'));
+        console.log(chalk.yellow('\n⚠ Config changed since last index. Run `DEEPINDEX index` to update.\n'));
       } else if (manifestResult.reason === 'missing') {
-        console.error(chalk.red('\n✗ Index not found. Please run: embedcontext index'));
+        console.error(chalk.red('\n✗ Index not found. Please run: DEEPINDEX index'));
         process.exit(1);
       }
     }
@@ -286,7 +286,7 @@ program
 
       // Check if index exists
       if (!faissStore.exists()) {
-        console.error(chalk.red('✗ Index not found. Please run: embedcontext index'));
+        console.error(chalk.red('✗ Index not found. Please run: DEEPINDEX index'));
         process.exit(1);
       }
 

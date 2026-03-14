@@ -1,7 +1,7 @@
-# EmbedContext
+# DEEPINDEX
 
-[![npm version](https://img.shields.io/npm/v/embedcontext?color=blue)](https://www.npmjs.com/package/embedcontext)
-[![CI](https://github.com/themailmans/embedcontext/actions/workflows/ci.yml/badge.svg)](https://github.com/themailmans/embedcontext/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/DEEPINDEX?color=blue)](https://www.npmjs.com/package/DEEPINDEX)
+[![CI](https://github.com/themailmans/DEEPINDEX/actions/workflows/ci.yml/badge.svg)](https://github.com/themailmans/DEEPINDEX/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js 18+](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 
@@ -9,7 +9,7 @@
 
 ## What it does
 
-EmbedContext indexes your codebase with local Ollama embeddings and exposes 5 search tools to Claude Code via MCP. Instead of pasting files into context, Claude searches your codebase semantically — finding the right code by meaning, not just keywords.
+DEEPINDEX indexes your codebase with local Ollama embeddings and exposes 5 search tools to Claude Code via MCP. Instead of pasting files into context, Claude searches your codebase semantically — finding the right code by meaning, not just keywords.
 
 ## How it works
 
@@ -18,7 +18,7 @@ Your Codebase
      │
      ▼
 ┌─────────────┐    chunks     ┌──────────────────┐    vectors    ┌────────────┐
-│  embedcontext│──────────────▶│  Ollama (local)  │──────────────▶│ FAISS Index│
+│  DEEPINDEX│──────────────▶│  Ollama (local)  │──────────────▶│ FAISS Index│
 │   index     │               │ nomic-embed-text  │               │ + SQLite   │
 └─────────────┘               └──────────────────┘               └─────┬──────┘
                                                                         │
@@ -40,12 +40,12 @@ Requires [Ollama](https://ollama.com) running with `nomic-embed-text`:
 
 ```bash
 ollama pull nomic-embed-text
-npm install -g embedcontext
+npm install -g DEEPINDEX
 
 cd your-project
-embedcontext init     # creates embedcontext.json
-embedcontext index    # builds vector index (~30s)
-embedcontext mcp-config  # outputs Claude Desktop config
+DEEPINDEX init     # creates DEEPINDEX.json
+DEEPINDEX index    # builds vector index (~30s)
+DEEPINDEX mcp-config  # outputs Claude Desktop config
 ```
 
 Add the MCP config output to your Claude Desktop settings and restart. Done.
@@ -65,13 +65,13 @@ Add the MCP config output to your Claude Desktop settings and restart. Done.
 ## CLI Commands
 
 ```bash
-embedcontext doctor      # check environment health
-embedcontext init        # create embedcontext.json
-embedcontext index       # build/rebuild vector index
-embedcontext search "query"  # search from the terminal
-embedcontext stats       # index status and chunk counts
-embedcontext clean       # remove index data
-embedcontext mcp-config  # output Claude Desktop MCP config
+DEEPINDEX doctor      # check environment health
+DEEPINDEX init        # create DEEPINDEX.json
+DEEPINDEX index       # build/rebuild vector index
+DEEPINDEX search "query"  # search from the terminal
+DEEPINDEX stats       # index status and chunk counts
+DEEPINDEX clean       # remove index data
+DEEPINDEX mcp-config  # output Claude Desktop MCP config
 ```
 
 ## Why local?
@@ -89,7 +89,7 @@ embedcontext mcp-config  # output Claude Desktop MCP config
 
 ## Configuration
 
-`embedcontext.json` in your project root controls what gets indexed:
+`DEEPINDEX.json` in your project root controls what gets indexed:
 
 ```json
 {
@@ -108,7 +108,7 @@ embedcontext mcp-config  # output Claude Desktop MCP config
 }
 ```
 
-Use `.embedcontextignore` to exclude files (same syntax as `.gitignore`).
+Use `.DEEPINDEXignore` to exclude files (same syntax as `.gitignore`).
 
 ## Requirements
 

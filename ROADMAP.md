@@ -1,4 +1,4 @@
-# EmbedContext Roadmap
+# DEEPINDEX Roadmap
 
 Known gaps, planned improvements, and future ideas.
 
@@ -15,7 +15,7 @@ The manifest records the search tier used at index time, but the `index` command
 ## Planned Features
 
 ### Better File Watching
-`chokidar` is a dependency but no watcher implementation exists yet. The plan is an `embedcontext watch` command that incrementally re-indexes changed files without a full rebuild.
+`chokidar` is a dependency but no watcher implementation exists yet. The plan is an `DEEPINDEX watch` command that incrementally re-indexes changed files without a full rebuild.
 
 ### Python + Go Chunkers
 Current chunkers cover TypeScript, Rust, and Markdown. Python and Go get the generic base-chunker fallback. Dedicated chunkers for these languages would improve chunk quality for those codebases.
@@ -23,7 +23,7 @@ Current chunkers cover TypeScript, Rust, and Markdown. Python and Go get the gen
 ### Reranking Tier
 The three-tier search design (hybrid → rerank → keyword) is scaffolded in `search-tier.ts` but the rerank tier is not implemented. Would use a cross-encoder model (likely a small local one via Ollama) to rerank FAISS results by relevance.
 
-### `embedcontext update`
+### `DEEPINDEX update`
 Incremental re-indexing of only files changed since last index (using manifest timestamps), rather than full rebuild every time.
 
 ### Windows MCP Path Generation
@@ -46,6 +46,6 @@ No test suite exists yet. Priority areas:
 - ✅ Config auto-discovery (walks up directories)
 - ✅ Stale index detection via manifest
 - ✅ Security: path traversal prevention, query sanitization, resource limits
-- ✅ `.embedcontextignore` support
+- ✅ `.DEEPINDEXignore` support
 - ✅ TypeScript, Rust, Markdown chunkers
 - ✅ Cross-platform path handling

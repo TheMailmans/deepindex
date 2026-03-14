@@ -1,5 +1,5 @@
 /**
- * EmbedContext Doctor Command
+ * DEEPINDEX Doctor Command
  * Environment health check and diagnostics
  */
 
@@ -47,7 +47,7 @@ export async function runDiagnostics(): Promise<CheckResult[]> {
       name: 'Config file',
       status: 'fail',
       message: 'Not found',
-      detail: 'Run `embedcontext init` to create embedcontext.json',
+      detail: 'Run `DEEPINDEX init` to create DEEPINDEX.json',
     });
   }
 
@@ -132,7 +132,7 @@ export async function runDiagnostics(): Promise<CheckResult[]> {
  * Print diagnostics to console with colors
  */
 export function printDiagnostics(results: CheckResult[]): void {
-  console.log(chalk.cyan.bold('\n🩺 EmbedContext Doctor\n'));
+  console.log(chalk.cyan.bold('\n🩺 DEEPINDEX Doctor\n'));
 
   const maxNameLen = Math.max(...results.map((r) => r.name.length));
 

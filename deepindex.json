@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "projectName": "EmbedContext",
+  "projectName": "DEEPINDEX",
   "projectType": "typescript",
   "rootDir": ".",
-  "indexDir": ".embedcontext",
+  "indexDir": ".DEEPINDEX",
   "domains": [
     {
       "name": "typescript-embeddings",

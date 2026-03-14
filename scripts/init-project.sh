@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🚀 EmbedContext Initialization"
+echo "🚀 DEEPINDEX Initialization"
 echo ""
 
 # Detect project root
@@ -24,11 +24,11 @@ detect_project_type() {
 PROJECT_TYPE=$(detect_project_type)
 echo "Detected project type: $PROJECT_TYPE"
 
-# Create embedcontext.json
+# Create DEEPINDEX.json
 echo ""
 echo "📝 Creating configuration file..."
 
-cat > embedcontext.json <<EOF
+cat > DEEPINDEX.json <<EOF
 {
   "projectName": "$(basename $PROJECT_ROOT)",
   "projectType": "$PROJECT_TYPE",
@@ -48,7 +48,7 @@ cat > embedcontext.json <<EOF
 }
 EOF
 
-echo "✅ Created embedcontext.json"
+echo "✅ Created DEEPINDEX.json"
 
 # Create .claude directory
 mkdir -p .claude/memory-bank/{core,knowledge}
@@ -83,10 +83,10 @@ EOF
 echo "✅ Created .claude/INIT.md"
 
 echo ""
-echo "✅ EmbedContext initialized successfully!"
+echo "✅ DEEPINDEX initialized successfully!"
 echo ""
 echo "Next steps:"
-echo "  1. Edit embedcontext.json to configure domains for your project"
-echo "  2. Run: embedcontext doctor    (verify setup)"
-echo "  3. Run: embedcontext index     (build embeddings)"
-echo "  4. Run: embedcontext mcp-config (get Claude Desktop config)"
+echo "  1. Edit DEEPINDEX.json to configure domains for your project"
+echo "  2. Run: DEEPINDEX doctor    (verify setup)"
+echo "  3. Run: DEEPINDEX index     (build embeddings)"
+echo "  4. Run: DEEPINDEX mcp-config (get Claude Desktop config)"

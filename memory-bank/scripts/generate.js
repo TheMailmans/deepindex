@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load configuration
-const configPath = process.env.EMBEDCONTEXT_CONFIG || path.join(process.cwd(), 'embedcontext.json');
+const configPath = process.env.DEEPINDEX_CONFIG || path.join(process.cwd(), 'DEEPINDEX.json');
 
 let config;
 try {
@@ -23,7 +23,7 @@ try {
   config = JSON.parse(configContent);
 } catch (error) {
   console.error('Error loading configuration from:', configPath);
-  console.error('Make sure embedcontext.json exists or set EMBEDCONTEXT_CONFIG environment variable');
+  console.error('Make sure DEEPINDEX.json exists or set DEEPINDEX_CONFIG environment variable');
   process.exit(1);
 }
 

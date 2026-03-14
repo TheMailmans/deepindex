@@ -1,13 +1,13 @@
 /**
- * Custom Error Classes for EmbedContext
+ * Custom Error Classes for DEEPINDEX
  *
  * Provides structured error handling with error codes and context.
  */
 
 /**
- * Base error class for all EmbedContext errors
+ * Base error class for all DEEPINDEX errors
  */
-export class EmbedContextError extends Error {
+export class DEEPINDEXError extends Error {
   public readonly code: string;
   public readonly context?: Record<string, unknown>;
   public readonly cause?: Error;
@@ -19,7 +19,7 @@ export class EmbedContextError extends Error {
     cause?: Error
   ) {
     super(message);
-    this.name = 'EmbedContextError';
+    this.name = 'DEEPINDEXError';
     this.code = code;
     this.context = context;
     this.cause = cause;
@@ -54,7 +54,7 @@ export class EmbedContextError extends Error {
 /**
  * Configuration-related errors
  */
-export class ConfigError extends EmbedContextError {
+export class ConfigError extends DEEPINDEXError {
   constructor(message: string, context?: Record<string, unknown>, cause?: Error) {
     super(message, 'CONFIG_ERROR', context, cause);
     this.name = 'ConfigError';
@@ -67,7 +67,7 @@ export class ConfigError extends EmbedContextError {
 export class ConfigNotFoundError extends ConfigError {
   constructor(searchPaths?: string[]) {
     super(
-      'Configuration file not found. Run `embedcontext init` to create one.',
+      'Configuration file not found. Run `DEEPINDEX init` to create one.',
       { searchPaths }
     );
     this.name = 'ConfigNotFoundError';
@@ -87,7 +87,7 @@ export class ConfigInvalidError extends ConfigError {
 /**
  * Index-related errors
  */
-export class IndexError extends EmbedContextError {
+export class IndexError extends DEEPINDEXError {
   constructor(message: string, context?: Record<string, unknown>, cause?: Error) {
     super(message, 'INDEX_ERROR', context, cause);
     this.name = 'IndexError';
@@ -100,7 +100,7 @@ export class IndexError extends EmbedContextError {
 export class IndexNotFoundError extends IndexError {
   constructor(indexPath?: string) {
     super(
-      'Index not found. Run `embedcontext index` to build it.',
+      'Index not found. Run `DEEPINDEX index` to build it.',
       { indexPath }
     );
     this.name = 'IndexNotFoundError';
@@ -113,7 +113,7 @@ export class IndexNotFoundError extends IndexError {
 export class IndexStaleError extends IndexError {
   constructor(reason?: string) {
     super(
-      'Index is stale. Run `embedcontext index` to rebuild.',
+      'Index is stale. Run `DEEPINDEX index` to rebuild.',
       { reason }
     );
     this.name = 'IndexStaleError';
@@ -123,7 +123,7 @@ export class IndexStaleError extends IndexError {
 /**
  * Ollama-related errors
  */
-export class OllamaError extends EmbedContextError {
+export class OllamaError extends DEEPINDEXError {
   constructor(message: string, context?: Record<string, unknown>, cause?: Error) {
     super(message, 'OLLAMA_ERROR', context, cause);
     this.name = 'OllamaError';
@@ -159,7 +159,7 @@ export class OllamaModelNotFoundError extends OllamaError {
 /**
  * Search-related errors
  */
-export class SearchError extends EmbedContextError {
+export class SearchError extends DEEPINDEXError {
   constructor(message: string, context?: Record<string, unknown>, cause?: Error) {
     super(message, 'SEARCH_ERROR', context, cause);
     this.name = 'SearchError';
@@ -169,7 +169,7 @@ export class SearchError extends EmbedContextError {
 /**
  * Resource limit exceeded
  */
-export class ResourceLimitError extends EmbedContextError {
+export class ResourceLimitError extends DEEPINDEXError {
   public readonly limit: string;
   public readonly actual: number;
   public readonly maximum: number;
@@ -190,7 +190,7 @@ export class ResourceLimitError extends EmbedContextError {
 /**
  * Concurrency limit exceeded
  */
-export class ConcurrencyLimitError extends EmbedContextError {
+export class ConcurrencyLimitError extends DEEPINDEXError {
   constructor(limit: number) {
     super(
       `Too many concurrent requests. Maximum: ${limit}`,
@@ -204,7 +204,7 @@ export class ConcurrencyLimitError extends EmbedContextError {
 /**
  * Operation timed out
  */
-export class TimeoutError extends EmbedContextError {
+export class TimeoutError extends DEEPINDEXError {
   constructor(operation: string, timeoutMs: number) {
     super(
       `Operation timed out: ${operation} (${timeoutMs}ms)`,
@@ -216,22 +216,22 @@ export class TimeoutError extends EmbedContextError {
 }
 
 /**
- * Check if an error is an EmbedContext error
+ * Check if an error is an DEEPINDEX error
  */
-export function isEmbedContextError(error: unknown): error is EmbedContextError {
-  return error instanceof EmbedContextError;
+export function isDEEPINDEXError(error: unknown): error is DEEPINDEXError {
+  return error instanceof DEEPINDEXError;
 }
 
 /**
- * Wrap an unknown error in an EmbedContextError
+ * Wrap an unknown error in an DEEPINDEXError
  */
-export function wrapError(error: unknown, defaultMessage: string): EmbedContextError {
-  if (error instanceof EmbedContextError) {
+export function wrapError(error: unknown, defaultMessage: string): DEEPINDEXError {
+  if (error instanceof DEEPINDEXError) {
     return error;
   }
 
   if (error instanceof Error) {
-    return new EmbedContextError(
+    return new DEEPINDEXError(
       error.message || defaultMessage,
       'UNKNOWN_ERROR',
       undefined,
@@ -239,7 +239,7 @@ export function wrapError(error: unknown, defaultMessage: string): EmbedContextE
     );
   }
 
-  return new EmbedContextError(
+  return new DEEPINDEXError(
     defaultMessage,
     'UNKNOWN_ERROR',
     { originalError: String(error) }

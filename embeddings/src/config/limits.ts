@@ -144,7 +144,7 @@ export const LIMITS = {
  * Get environment variable override for a limit
  */
 export function getLimitOverride(name: string, defaultValue: number): number {
-  const envVar = `EMBEDCONTEXT_LIMIT_${name.toUpperCase()}`;
+  const envVar = `DEEPINDEX_LIMIT_${name.toUpperCase()}`;
   const envValue = process.env[envVar];
 
   if (envValue !== undefined) {

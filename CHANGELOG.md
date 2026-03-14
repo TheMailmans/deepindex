@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to EmbedContext will be documented in this file.
+All notable changes to DEEPINDEX will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `prepublishOnly` build step in `embeddings/package.json` — ensures dist is always fresh on publish
 - `scripts/init-project.js` — cross-platform Node.js init script (works on Windows, macOS, Linux)
 - `docs/setup.md` — full step-by-step setup guide from Ollama install through MCP config
-- `openclaw-skill/SKILL.md` — OpenClaw agent skill for using EmbedContext in AI assistant workflows
+- `openclaw-skill/SKILL.md` — OpenClaw agent skill for using DEEPINDEX in AI assistant workflows
 - `*.faiss` to `.gitignore`
 
 ### Changed
@@ -25,21 +25,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of EmbedContext
+- Initial release of DEEPINDEX
 - Semantic code search using Ollama embeddings (nomic-embed-text)
 - Hybrid search combining FAISS vector search + SQLite FTS5 keyword search
 - MCP server with 5 specialized tools for Claude Code integration
 - Three-tier search fallback (hybrid → rerank → keyword)
 - CLI commands:
-  - `embedcontext init` - Initialize project configuration
-  - `embedcontext index` - Build embeddings index
-  - `embedcontext search` - Search codebase semantically
-  - `embedcontext stats` - Show index statistics
-  - `embedcontext doctor` - Environment health check
-  - `embedcontext clean` - Remove index data
-  - `embedcontext mcp-config` - Output Claude Desktop configuration
-  - `embedcontext mcp` - Run MCP server
-- Configuration auto-discovery (walks up directories to find embedcontext.json)
+  - `DEEPINDEX init` - Initialize project configuration
+  - `DEEPINDEX index` - Build embeddings index
+  - `DEEPINDEX search` - Search codebase semantically
+  - `DEEPINDEX stats` - Show index statistics
+  - `DEEPINDEX doctor` - Environment health check
+  - `DEEPINDEX clean` - Remove index data
+  - `DEEPINDEX mcp-config` - Output Claude Desktop configuration
+  - `DEEPINDEX mcp` - Run MCP server
+- Configuration auto-discovery (walks up directories to find DEEPINDEX.json)
 - Manifest system for stale index detection
 - Security hardening:
   - Path validation and traversal prevention
@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Path traversal prevention in file operations
 - Query sanitization for FTS5 searches
 - Resource limits to prevent runaway processes
-- `.embedcontextignore` for excluding sensitive files
+- `.DEEPINDEXignore` for excluding sensitive files
 
-[Unreleased]: https://github.com/themailmans/embedcontext/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/themailmans/embedcontext/releases/tag/v0.1.0
+[Unreleased]: https://github.com/themailmans/DEEPINDEX/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/themailmans/DEEPINDEX/releases/tag/v0.1.0

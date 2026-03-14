@@ -1,5 +1,5 @@
 /**
- * Configuration Loader for EmbedContext
+ * Configuration Loader for DEEPINDEX
  * Loads and validates project-specific configuration
  *
  * INVARIANT:
@@ -17,7 +17,7 @@ export interface DomainConfig {
   description: string;
 }
 
-export interface EmbedContextConfig {
+export interface DEEPINDEXConfig {
   schemaVersion?: number;
   projectName: string;
   projectType: string; // 'rust', 'typescript', 'python', 'go', 'java', 'mixed'
@@ -46,15 +46,15 @@ export interface ResolvedConfig {
   configPath: string;       // Path to the config file
 }
 
-const CONFIG_FILENAME = 'embedcontext.json';
-const ENV_VAR_NAME = 'EMBEDCONTEXT_CONFIG';
-const DEFAULT_INDEX_DIR = '.embedcontext';
+const CONFIG_FILENAME = 'DEEPINDEX.json';
+const ENV_VAR_NAME = 'DEEPINDEX_CONFIG';
+const DEFAULT_INDEX_DIR = '.DEEPINDEX';
 const DEFAULT_SCHEMA_VERSION = 1;
 const DEFAULT_EMBEDDINGS_MODEL = 'nomic-embed-text';
 const DEFAULT_CHUNK_SIZE = 512;
 
 /**
- * Walk up directories to find embedcontext.json
+ * Walk up directories to find DEEPINDEX.json
  * Returns the path to the config file or null if not found.
  */
 export function findConfig(startDir: string = process.cwd()): string | null {
@@ -81,7 +81,7 @@ function resolveIndexDir(rootDirAbs: string, indexDir: string | undefined): stri
  * Load raw config from file (internal only)
  * @internal
  */
-function loadConfig(configPath: string): EmbedContextConfig {
+function loadConfig(configPath: string): DEEPINDEXConfig {
   const configContent = readFileSync(configPath, 'utf-8');
   return JSON.parse(configContent);
 }
@@ -91,8 +91,8 @@ function loadConfig(configPath: string): EmbedContextConfig {
  *
  * Priority order:
  * 1. explicitPath parameter (highest)
- * 2. EMBEDCONTEXT_CONFIG env var
- * 3. Walk up directories to find embedcontext.json
+ * 2. DEEPINDEX_CONFIG env var
+ * 3. Walk up directories to find DEEPINDEX.json
  *
  * This is the ONLY export that should be used by CLI, index, search, clean, doctor, MCP.
  */
@@ -102,7 +102,7 @@ export function loadConfigResolved(explicitPath?: string): ResolvedConfig {
     || findConfig();
 
   if (!configPath) {
-    throw new Error(`No ${CONFIG_FILENAME} found. Run: embedcontext init`);
+    throw new Error(`No ${CONFIG_FILENAME} found. Run: DEEPINDEX init`);
   }
 
   if (!existsSync(configPath)) {

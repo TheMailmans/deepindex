@@ -1,4 +1,4 @@
-# Getting Started with EmbedContext
+# Getting Started with DEEPINDEX
 
 Get semantic code search working in under 5 minutes.
 
@@ -6,17 +6,17 @@ Get semantic code search working in under 5 minutes.
 
 ```bash
 # 1. Install
-npm install -g embedcontext
+npm install -g DEEPINDEX
 
 # 2. Initialize (in your project)
 cd your-project
-embedcontext init
+DEEPINDEX init
 
 # 3. Build index
-embedcontext index
+DEEPINDEX index
 
 # 4. Search!
-embedcontext search "authentication flow"
+DEEPINDEX search "authentication flow"
 ```
 
 ## Prerequisites
@@ -41,15 +41,15 @@ ollama pull nomic-embed-text
 ## Verify Setup
 
 ```bash
-embedcontext doctor
+DEEPINDEX doctor
 ```
 
 Expected output:
 ```
-🩺 EmbedContext Doctor
+🩺 DEEPINDEX Doctor
 
   ✓ Node.js          v20.x.x
-  ✓ Config file      /path/to/embedcontext.json
+  ✓ Config file      /path/to/DEEPINDEX.json
   ✓ Ollama server    Connected
   ✓ Embedding model  nomic-embed-text
   ✓ Search tier      hybrid (semantic + keyword)
@@ -60,7 +60,7 @@ Expected output:
 Generate MCP configuration:
 
 ```bash
-embedcontext mcp-config
+DEEPINDEX mcp-config
 ```
 
 Add the output to your Claude Desktop config file:

@@ -1,10 +1,10 @@
-# Contributing to EmbedContext
+# Contributing to DEEPINDEX
 
-Thank you for your interest in contributing to EmbedContext!
+Thank you for your interest in contributing to DEEPINDEX!
 
 ## Project Status
 
-EmbedContext is currently maintained by a single developer. While I appreciate community interest, please understand that response times may vary.
+DEEPINDEX is currently maintained by a single developer. While I appreciate community interest, please understand that response times may vary.
 
 ## How to Contribute
 
@@ -43,8 +43,8 @@ Before submitting a PR:
 
 ```bash
 # Clone the repository
-git clone https://github.com/themailmans/embedcontext.git
-cd embedcontext
+git clone https://github.com/themailmans/DEEPINDEX.git
+cd DEEPINDEX
 
 # Install dependencies
 npm install
@@ -99,7 +99,7 @@ feat: add support for Python chunking
 
 ## Questions?
 
-- Open a [GitHub Discussion](https://github.com/themailmans/embedcontext/discussions)
+- Open a [GitHub Discussion](https://github.com/themailmans/DEEPINDEX/discussions)
 - Check the [documentation](./docs/)
 
 ## License

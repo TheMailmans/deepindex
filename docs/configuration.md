@@ -1,11 +1,11 @@
 # Configuration Guide
 
-EmbedContext is configured via `embedcontext.json` in your project root.
+DEEPINDEX is configured via `DEEPINDEX.json` in your project root.
 
 ## Quick Setup
 
 ```bash
-embedcontext init
+DEEPINDEX init
 ```
 
 This creates a default configuration based on your project type.
@@ -18,7 +18,7 @@ This creates a default configuration based on your project type.
   "projectName": "my-project",
   "projectType": "typescript",
   "rootDir": ".",
-  "indexDir": ".embedcontext",
+  "indexDir": ".DEEPINDEX",
   "domains": [
     {
       "name": "src",
@@ -53,7 +53,7 @@ This creates a default configuration based on your project type.
 | Field | Default | Description |
 |-------|---------|-------------|
 | `rootDir` | `"."` | Root directory for indexing |
-| `indexDir` | `".embedcontext"` | Where to store index data |
+| `indexDir` | `".DEEPINDEX"` | Where to store index data |
 | `embeddingsModel` | `"nomic-embed-text"` | Ollama model for embeddings |
 | `chunkSize` | `512` | Target chunk size in characters |
 | `tagKeywords` | (built-in) | Keywords to detect in code |
@@ -93,7 +93,7 @@ Domains organize your codebase into logical sections for targeted searching.
 
 ## Ignore Patterns
 
-Create `.embedcontextignore` to exclude files:
+Create `.DEEPINDEXignore` to exclude files:
 
 ```
 # Dependencies
@@ -112,7 +112,7 @@ build/
 
 | Variable | Description |
 |----------|-------------|
-| `EMBEDCONTEXT_CONFIG` | Path to config file (overrides auto-discovery) |
+| `DEEPINDEX_CONFIG` | Path to config file (overrides auto-discovery) |
 | `OLLAMA_HOST` | Ollama server URL (default: http://localhost:11434) |
 
 ## Examples

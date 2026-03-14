@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * EmbedContext MCP Server
+ * DEEPINDEX MCP Server
  *
  * Exposes semantic code search capabilities to Claude Code via MCP protocol.
  * Universal server that works with any codebase through configuration.
@@ -73,7 +73,7 @@ interface TraceFlowArgs {
   max_results?: number;
 }
 
-class EmbedContextServer {
+class DEEPINDEXServer {
   private server: Server;
   private queryEngine: QueryEngine | null = null;
   private metadataStore: MetadataStore;
@@ -83,7 +83,7 @@ class EmbedContextServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'embedcontext',
+        name: 'DEEPINDEX',
         version: '0.1.0',
       },
       {
@@ -157,7 +157,7 @@ class EmbedContextServer {
             },
             domain: {
               type: 'string',
-              description: `Filter by domain (configured in embedcontext.json): ${domainNames}`,
+              description: `Filter by domain (configured in DEEPINDEX.json): ${domainNames}`,
             },
             file_type: {
               type: 'string',
@@ -490,5 +490,5 @@ class EmbedContextServer {
 }
 
 // Start server
-const server = new EmbedContextServer();
+const server = new DEEPINDEXServer();
 server.run().catch(console.error);
