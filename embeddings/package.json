@@ -45,7 +45,7 @@
     "chokidar": "^4.0.3",
     "commander": "^12.1.0",
     "faiss-node": "^0.5.1",
-    "glob": "^11.0.0",
+    "glob": "^13.0.6",
     "ollama": "^0.5.11"
   },
   "devDependencies": {
