@@ -39,14 +39,14 @@
   "bugs": "https://github.com/themailmans/deepindex/issues",
   "homepage": "https://github.com/themailmans/deepindex#readme",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@modelcontextprotocol/sdk": "^1.28.0",
     "better-sqlite3": "^11.7.0",
     "chalk": "^5.3.0",
     "chokidar": "^4.0.3",
     "commander": "^12.1.0",
     "faiss-node": "^0.5.1",
     "glob": "^11.0.0",
-    "ollama": "^0.5.11"
+    "ollama": "^0.6.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
